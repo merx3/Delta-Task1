@@ -1,0 +1,106 @@
+Legend:
+* E = Employee
+* D = WeekDay
+* S = Work Shift
+* 0 = free
+* 1 = occupied, cannot go to work
+
+
+Example 1:
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 0  0  0  0  0  0  0  0  0  0
+E2: 0  0  0  0  0  0  0  0  0  0
+E3: 0  0  0  0  0  0  0  0  0  0  
+E4: 0  0  0  0  0  0  0  0  0  0
+
+Max people in shift: 3
+Perfect solution: each shift has 3 people; 2 employees will have 3 free days, 
+	the other 2 will have 2 free days
+
+Example 2:
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 0  0  0  0  0  0  0  0  0  0
+E2: 0  0  0  0  0  0  0  0  0  0
+E3: 0  0  0  0  0  0  0  0  0  0  
+E4: 0  0  0  0  0  0  0  0  0  0
+
+Max people in shift: 1
+Perfect solution: Doesn't exist- cannot have more than 2 students/day
+
+
+Example 3:
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  1  1  0  0  0
+E2: 0  0  0  0  0  0  0  0  0  0
+E3: 0  0  0  0  0  0  0  0  0  0  
+E4: 0  0  0  0  0  0  0  0  0  0
+
+Max people in shift: 3
+Perfect solution: Doesn't exist- E1 doesn't have needed hours
+
+Example 4:
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  0  0  0  0  0
+E2: 0  0  0  0  0  1  1  1  1  1
+E3: 1  1  1  1  1  0  0  0  0  0  
+E4: 0  0  0  0  0  1  1  1  1  1
+
+Max people in shift: 2
+Perfect solution: First 2.5 days- E2 and E4, second 2.5 days- E1 and E3
+
+Example 5: 
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  0  0  0  0  0
+E2: 1  0  0  0  0  0  1  1  1  1
+E3: 1  1  1  1  1  0  0  0  0  0  
+E4: 1  0  0  0  0  0  1  1  1  1
+
+Max people in shift: 2
+Perfect solution: Doesn't exist- day one can't hold 4 people
+
+Example 6:
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  0  0  0  0  0
+E2: 1  1  1  1  1  0  0  0  0  0
+E3: 0  0  0  0  0  0  0  0  0  0
+E4: 0  0  0  0  0  0  0  0  0  0
+
+Max people in shift: 2
+Perfect solution: First 2.5 days- E3 and E4, second 2.5 days- E1 and E2
+
+Example 7:
+
+xx [D1,   D2,   D3,   D4,   D5] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  0  0  0  0  0
+E2: 1  1  1  1  1  0  0  0  0  0
+E3: 0  0  0  0  0  0  0  0  0  0
+E4: 0  0  0  0  0  0  0  0  0  0
+
+Max people in shift: 4
+Perfect solution: First 2.5 days- E3 and E4, second 2.5 days- all
+
+
+Example 8:
+
+xx [D1,   D2,   D3,   D4,   D5,   D6,   D7,   D8,   D9,   D10,  D11,  D12,  D13,  D14] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  1  1  1  1  1  1  1
+E2: 1  0  0  0  1  1  1  1  1  1  1  1  1  1  1  1  0  0  1  1  1  1  1  1  1  1  1  1
+E3: 1  1  1  1  0  0  0  0  0  1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  1  1  1  1
+E4: 1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1  1  1  1
+
+Max people in shift: 2
+Perfect solution: None- Everyone can attend at their free time, except E4 - he has only non working days free
