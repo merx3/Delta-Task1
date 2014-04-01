@@ -48,26 +48,61 @@ public class Employee {
 			fileWriter = new PrintStream(filename,"windows-1251");
 			fileWriter.printf("Hours scheduled for the two weeks:%d\n\n",this.workHours);
 			fileWriter.println("First Week");
-			fileWriter.println("Monday "+this.workShifts[0][1]);
-			fileWriter.println("Tuesday "+this.workShifts[1][1]);
-			fileWriter.println("Wednesday "+this.workShifts[2][1]);
-			fileWriter.println("Thirsday "+this.workShifts[3][1]);
-			fileWriter.println("Friday "+this.workShifts[4][1]);
-			fileWriter.println("Saturday "+this.workShifts[5][1]);
-			fileWriter.println("Sunday "+this.workShifts[6][1]);
-			fileWriter.println("Second Week");
-			fileWriter.println("Monday "+this.workShifts[7][1]);
-			fileWriter.println("Tuesday "+this.workShifts[8][1]);
-			fileWriter.println("Wednesday "+this.workShifts[9][1]);
-			fileWriter.println("Thirsday "+this.workShifts[10][1]);
-			fileWriter.println("Friday "+this.workShifts[4][11]);
-			fileWriter.println("Saturday "+this.workShifts[12][1]);
-			fileWriter.println("Sunday "+this.workShifts[13][1]);
+			fileWriter.printf("Monday ");
+			printSpec(0);
+			fileWriter.println();
+			fileWriter.printf("Tuesday ");
+			printSpec(1);
+			fileWriter.println();
+			fileWriter.printf("Wednesday ");
+			printSpec(2);
+			fileWriter.println();
+			fileWriter.printf("Thirsday ");
+			printSpec(3);
+			fileWriter.println();
+			fileWriter.printf("Friday ");
+			printSpec(4);
+			fileWriter.println();
+			fileWriter.printf("Saturday ");
+			printSpec(5);
+			fileWriter.println();
+			fileWriter.printf("Sunday ");
+			printSpec(6);
+			fileWriter.println();
+			fileWriter.printf("Second Week");
+			fileWriter.printf("Monday ");
+			printSpec(7);
+			fileWriter.println();
+			fileWriter.printf("Tuesday ");
+			printSpec(8);
+			fileWriter.println();
+			fileWriter.printf("Wednesday ");
+			printSpec(9);
+			fileWriter.println();
+			fileWriter.printf("Thirsday ");
+			printSpec(10);
+			fileWriter.println();
+			fileWriter.printf("Friday ");
+			printSpec(11);
+			fileWriter.println();
+			fileWriter.printf("Saturday ");
+			printSpec(12);
+			fileWriter.println();
+			fileWriter.printf("Sunday ");
+			printSpec(13);
+			fileWriter.println();
 
 		}
 		catch (FileNotFoundException fnf) { System.out.println("File not found!"); return 1;}
 		catch (UnsupportedEncodingException un) { System.out.println("Unsupported Encoding!"); return 1;}
 		fileWriter.close();
-		return 0;	
+		return 0;
 	}
+	public void printSpec(int position)
+			{
+			for (int j = 1;j < this.workShifts[position].length;j++)
+				{
+					fileWriter.printf(j + " ");
+				}
+			}
 }
