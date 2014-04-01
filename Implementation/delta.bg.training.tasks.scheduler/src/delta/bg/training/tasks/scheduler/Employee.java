@@ -49,47 +49,47 @@ public class Employee {
 			fileWriter.printf("Hours scheduled for the two weeks:%d\n\n",this.workHours);
 			fileWriter.println("First Week");
 			fileWriter.printf("Monday ");
-			printSpec(0);
+			printSpec(0,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Tuesday ");
-			printSpec(1);
+			printSpec(1,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Wednesday ");
-			printSpec(2);
+			printSpec(2,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Thirsday ");
-			printSpec(3);
+			printSpec(3,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Friday ");
-			printSpec(4);
+			printSpec(4,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Saturday ");
-			printSpec(5);
+			printSpec(5,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Sunday ");
-			printSpec(6);
+			printSpec(6,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Second Week");
 			fileWriter.printf("Monday ");
-			printSpec(7);
+			printSpec(7,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Tuesday ");
-			printSpec(8);
+			printSpec(8,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Wednesday ");
-			printSpec(9);
+			printSpec(9,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Thirsday ");
-			printSpec(10);
+			printSpec(10,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Friday ");
-			printSpec(11);
+			printSpec(11,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Saturday ");
-			printSpec(12);
+			printSpec(12,fileWriter);
 			fileWriter.println();
 			fileWriter.printf("Sunday ");
-			printSpec(13);
+			printSpec(13,fileWriter);
 			fileWriter.println();
 
 		}
@@ -98,11 +98,11 @@ public class Employee {
 		fileWriter.close();
 		return 0;
 	}
-	public void printSpec(int position)
+	public void printSpec(int position,PrintStream fileWriter)
 			{
 			for (int j = 1;j < this.workShifts[position].length;j++)
 				{
-					fileWriter.printf(j + " ");
+					fileWriter.printf("%d ",j);
 				}
 			}
 }
