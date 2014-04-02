@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-<<<<<<< Updated upstream
-=======
 import javax.swing.Popup;
 
->>>>>>> Stashed changes
 //import delta.bg.training.tasks.scheduler.Employee;
 
 public class Scheduler {
