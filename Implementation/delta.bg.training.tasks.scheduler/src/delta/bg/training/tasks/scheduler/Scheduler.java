@@ -322,7 +322,7 @@ public class Scheduler {
 		}
 		
 		if (occupiedCount < numWorkplacesTemp) {
-			List<EmployeeTemp> orderedByFreeTime = sortEmployeesByFreeTime(employeesTemp);
+			List<EmployeeTemp> orderedByFreeTime = sortEmployeesByFreeTimeInDay(employeesTemp, day);
 			for (int i =  orderedByFreeTime.size() - 1; i >= 0; i--) {
 				EmployeeTemp emp = orderedByFreeTime.get(i);
 				if (emp.workShifts[day][shift] == 0 && emp.availableShifts[day][shift]) {
@@ -345,14 +345,14 @@ public class Scheduler {
 		
 	}
 
-	private static List<EmployeeTemp> sortEmployeesByFreeTime(
-			LinkedList<EmployeeTemp> employees) {
+	private static List<EmployeeTemp> sortEmployeesByFreeTimeInDay(
+			LinkedList<EmployeeTemp> employees, int day) {
 		int currentFreeHours, nextFreeHours;
 		List<EmployeeTemp> orderedEmployees = new ArrayList<EmployeeTemp>(employees);
 		for (int i = 0; i < orderedEmployees.size(); i++) {
-			currentFreeHours = getEmployeeTotalFreeHours(orderedEmployees.get(i));
+			currentFreeHours = orderedEmployees.get(i).availbaleHours[day];
 			for (int j = i + 1; j < orderedEmployees.size(); j++) {
-				nextFreeHours = getEmployeeTotalFreeHours(orderedEmployees.get(j));
+				nextFreeHours = orderedEmployees.get(j).availbaleHours[day];
 				if (currentFreeHours > nextFreeHours) {
 					EmployeeTemp swap = orderedEmployees.get(i);
 					orderedEmployees.set(i, orderedEmployees.get(j));
@@ -362,14 +362,6 @@ public class Scheduler {
 			}
 		}
 		return orderedEmployees;
-	}
-	
-	private static int getEmployeeTotalFreeHours(EmployeeTemp e){
-		int hours = 0;
-		for (int i = 0; i < e.availbaleHours.length; i++) {
-			hours += e.availbaleHours[i];
-		}
-		return hours;
 	}
 
 	// TODO: Task 6
