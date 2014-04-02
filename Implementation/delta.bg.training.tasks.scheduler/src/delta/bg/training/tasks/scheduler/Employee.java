@@ -1,5 +1,11 @@
 package delta.bg.training.tasks.scheduler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
+import java.util.Scanner;
+
 public class Employee {
 	// TODO: Task 1
 	// declare private variables: id, workHours, etc.

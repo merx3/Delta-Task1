@@ -2,7 +2,7 @@ package delta.bg.training.tasks.scheduler;
 
 import java.util.LinkedList;
 
-import delta.bg.training.tasks.scheduler.Employee;
+//import delta.bg.training.tasks.scheduler.Employee;
 
 public class Scheduler {
 	// TODO: Task 3
