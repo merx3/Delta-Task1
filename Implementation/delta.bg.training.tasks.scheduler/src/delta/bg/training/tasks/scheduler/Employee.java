@@ -27,17 +27,17 @@ public class Employee implements Comparable<Employee>{
 	private boolean [][] availableShifts;
 	private int [][] workShifts;
 	
-	public Employee(int id,String filename)
-	{
-		this.id = 0;
-		this.workHours = 0;
-		readEmployeeDataFromFile(filename);    //Инициализираме startHours и endHours чрез метода.
-		/*
-		 * -availableHours = ?
-		 * -availableShifts = ?
-		 * -размерност на workshifts = ?
-		 */
-	}
+//	public Employee(int id,String filename)
+//	{
+//		this.id = 0;
+//		this.workHours = 0;
+//		readEmployeeDataFromFile(filename);    //Р�РЅРёС†РёР°Р»РёР·РёСЂР°РјРµ startHours Рё endHours С‡СЂРµР· РјРµС‚РѕРґР°.
+//		/*
+//		 * -availableHours = ?
+//		 * -availableShifts = ?
+//		 * -СЂР°Р·РјРµСЂРЅРѕСЃС‚ РЅР° workshifts = ?
+//		 */
+//	}
 	public int getId()
 	{
 		return this.id;
@@ -71,7 +71,7 @@ public class Employee implements Comparable<Employee>{
 		return this.endHours;
 	}
 	/*
-	 * Без сет методи за последните две, липсва проверка за валидност на същите.
+	 * Р‘РµР· СЃРµС‚ РјРµС‚РѕРґРё Р·Р° РїРѕСЃР»РµРґРЅРёС‚Рµ РґРІРµ, Р»РёРїСЃРІР° РїСЂРѕРІРµСЂРєР° Р·Р° РІР°Р»РёРґРЅРѕСЃС‚ РЅР° СЃСЉС‰РёС‚Рµ.
 	 */
 	
 	
@@ -169,6 +169,11 @@ public class Employee implements Comparable<Employee>{
 					fileWriter.printf("%d ",j);
 				}
 			}
+	
+	public int compareTo(Employee em) {
+		if(this.workHours > em.workHours) return 1; //tuk moje da trqbva da e < znaka, ne sum siguren!
+		else return 0;
+	}
 
 	
 

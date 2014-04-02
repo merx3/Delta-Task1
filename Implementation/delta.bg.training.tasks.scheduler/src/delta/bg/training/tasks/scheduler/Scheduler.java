@@ -229,7 +229,7 @@ public class Scheduler {
 
 	
 
-	LinkedList <EmployeeTemp> employees = new LinkedList<EmployeeTemp>();
+	//LinkedList <EmployeeTemp> employees = new LinkedList<EmployeeTemp>();
 	//GEORGI: tova mai ne trqbva da e taka??????? Imame ve4e podoben spisak, zatova go preimenuvam toq
 	//LinkedList <EmployeeTemp> employees1 = new LinkedList<EmployeeTemp>(); ???
 
