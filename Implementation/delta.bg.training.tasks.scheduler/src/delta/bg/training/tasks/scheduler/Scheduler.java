@@ -375,21 +375,26 @@ public class Scheduler {
 	// TODO: Task 6
 	/*public int rearrangeAveraging(){
 		boolean[] workdays = Employee.workdays;
-		//Променлива, с чиято помощ ще преброя работните дни.
+
+		//Promenliva, s chiyato pomosht shte prebroya rabotnite dni.
 		int workdaysCounter = 0;		
 		int[][][] occupiedWorkplaces = Employee.occupiedWorkplaces;
-		//Преброяваме работните дни.
+
+		//Prebroyavame rabotnite dni.
 		for(int i = 0; i < numEmployees; i++){
 			if(workdays[i]==true){
 				workdaysCounter++;
 			}
 		}		
-		//Формула за среден брой работни часове.
+
+		//Formula za sreden broy rabotni chasove.
 		int averageWeeklyHours = (workdaysCounter*numShifts*hoursInShift*numWorkplaces)/numEmployees;
 		int shifts = 0;
-		//Масив, които помни работните часове на стажантите.
+
+		//Masiv, koito pomni rabotnite chasove na stazhantite.
 		int[] employeesWorkHours = new int[numEmployees];
-		//Намирам работните часове на всеки стажант от броя на смените в occupiedWorkplace и ги вкарвам в масив.
+
+		//Namiram rabotnite chasove na vseki stazhant ot broya na smenite v occupiedWorkplace i gi vkarvam v masiv.
 		for(int empl = 0; empl < numEmployees;empl++){
 			for(int day = 0; day < 14;day++){
 			
