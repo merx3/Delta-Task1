@@ -284,6 +284,32 @@ public class Scheduler {
 	
 	// TODO: Task 6
 	public int rearrangeAveraging(){
+		boolean[] workdays = Employee.workdays;
+		//Променлива, с чиято помощ ще преброя работните дни.
+		int workdaysCounter = 0;		
+		int[][][] occupiedWorkplaces = Employee.occupiedWorkplaces;
+		//Преброяваме работните дни.
+		for(int i = 0; i < numEmployees; i++){
+			if(workdays[i]==true){
+				workdaysCounter++;
+			}
+		}		
+		//Формула за среден брой работни часове.
+		int averageWeeklyHours = (workdaysCounter*numShifts*hoursInShift*numWorkplaces)/numEmployees;
+		int shifts = 0;
+		//Масив, които помни работните часове на стажантите.
+		int[] employeesWorkHours = new int[numEmployees];
+		//Намирам работните часове на всеки стажант от броя на смените в occupiedWorkplace и ги вкарвам в масив.
+		for(int empl = 0; empl < numEmployees;empl++){
+			for(int day = 0; day < 14;day++){
+			
+				shifts = shifts + occupiedWorkplaces[day][empl][0];
+				
+			}
+		shifts = shifts*hoursInShift;
+		employeesWorkHours[empl] = shifts;
+		shifts = 0;
+		}
 		return -1;
 	}
 }
