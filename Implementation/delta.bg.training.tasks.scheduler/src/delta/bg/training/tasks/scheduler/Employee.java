@@ -19,13 +19,60 @@ public class Employee implements Comparable<Employee>{
 	// filename is the name of the Employee.in file. Task 2 
 	// has the read functionality
 	
-	//GEORGI: dobavil sum workHours, s cel da testvam dali raboti sortiraneto
+	private int id;
 	private int workHours;
-
-	public int compareTo(Employee em) {
-		if(this.workHours > em.workHours) return 1; //tuk moje da trqbva da e < znaka, ne sum siguren!
-		else return 0;
+	private int [] startHours;
+	private int [] endHours;
+	private int [] availableHours;
+	private boolean [][] availableShifts;
+	private int [][] workShifts;
+	
+	public Employee(int id,String filename)
+	{
+		this.id = 0;
+		this.workHours = 0;
+		readEmployeeDataFromFile(filename);    //Инициализираме startHours и endHours чрез метода.
+		/*
+		 * -availableHours = ?
+		 * -availableShifts = ?
+		 * -размерност на workshifts = ?
+		 */
 	}
+	public int getId()
+	{
+		return this.id;
+	}
+	public void setId(int id)
+	{
+		if (id>=1)
+		{
+		this.id = id;
+		}
+		else {System.out.println("Invalid ID number.");}
+	}
+	public int getWorkHours()
+	{
+		return this.workHours;
+	}
+	public void setWorkHours(int hours)
+	{
+		if (hours>=0)
+		{
+		this.workHours = hours;
+		}
+		else {System.out.println("Work Hours cannot be negative!");}
+	}
+	public int [] getStartHours()
+	{
+		return this.startHours;
+	}
+	public int [] getEndHours()
+	{
+		return this.endHours;
+	}
+	/*
+	 * Без сет методи за последните две, липсва проверка за валидност на същите.
+	 */
 	
 	
 	public Employee(int id, String filename) {
