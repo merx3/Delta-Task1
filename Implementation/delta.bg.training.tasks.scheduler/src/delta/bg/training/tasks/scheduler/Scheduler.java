@@ -1,5 +1,6 @@
 package delta.bg.training.tasks.scheduler;
 
+import java.util.Collections;
 import java.util.LinkedList;
 
 //import delta.bg.training.tasks.scheduler.Employee;
@@ -219,6 +220,8 @@ public class Scheduler {
 	}
 	
 	LinkedList <EmployeeTemp> employees = new LinkedList<EmployeeTemp>();
+	//GEORGI: tova mai ne trqbva da e taka??????? Imame ve4e podoben spisak, zatova go preimenuvam toq
+	//LinkedList <EmployeeTemp> employees1 = new LinkedList<EmployeeTemp>(); ???
 	
 	// for 4 employees
 	private void populateTempData(){ 
@@ -283,7 +286,7 @@ public class Scheduler {
 	}
 	
 	// TODO: Task 6
-	public int rearrangeAveraging(){
+	/*public int rearrangeAveraging(){
 		boolean[] workdays = Employee.workdays;
 		//Променлива, с чиято помощ ще преброя работните дни.
 		int workdaysCounter = 0;		
@@ -311,5 +314,67 @@ public class Scheduler {
 		shifts = 0;
 		}
 		return -1;
+	}*/
+	
+	//Task6 : Georgi
+	public int rearrangeAveraging(){
+		int countWorkDays=0;
+		int i,j,k;
+		for(i=0;i<7;i++){
+			if(workdays[i]){
+				countWorkDays++;
+			}
+		}
+		countWorkDays *= 2; //Vsichki izchislenia sa ni za 2-te sedmici ednovremenno
+		final double averageWorkHours = ( countWorkDays * numShifts * hoursInShift * numWorkplaces )/numEmployees ;
+		int indexOfEmployeeWithMinHours = 0;
+		int indexOfEmployeeWithMaxHours = numEmployees - 1;
+		int result = -1;
+		int countAvailableShifts = 0;
+		boolean [][] tmpAvailableShifts = null;
+		while(true){
+			Collections.sort(employees);
+			if((employees.get(indexOfEmployeeWithMinHours).getWorkHours() + hoursInShift) <= averageWorkHours){
+				while(true){
+					if((employees.get(indexOfEmployeeWithMaxHours).getWorkHours() - hoursInShift) >= averageWorkHours){
+						result = exchangeHours(indexOfEmployeeWithMinHours, indexOfEmployeeWithMaxHours);
+						if(result!=0){
+							indexOfEmployeeWithMaxHours--;
+						}
+						else
+							break;
+					}
+					else
+						break;
+				}
+				tmpAvailableShifts = employees.get(indexOfEmployeeWithMinHours).getAvailableShifts();
+				for(i=0; i<14; i++)
+					for(j=0; j<numShifts;j++)
+						if(tmpAvailableShifts[i][j])
+							countAvailableShifts++;
+				if(countAvailableShifts * hoursInShift < averageWorkHours)
+					indexOfEmployeeWithMinHours++;
+				else
+					break;
+			}
+			else
+				break;
+		}
+	}
+	
+	public int exchangeHours(int indexOfRecipient, int indexOfDonor){
+		int i,j,k,l;
+		boolean [][] tmpAvailableShiftsRecipient = employees.get(indexOfRecipient).getAvailableShifts();
+		int [][] tmpWorkShiftsRecipient = employees.get(indexOfRecipient).getWorkShifts();
+		int [][] tmpWorkShiftsDonor = employees.get(indexOfDonor).getWorkShifts();
+		for(i=0;i<14;i++){
+			for(j=0;j<numShifts;j++){
+				if(tmpAvailableShiftsRecipient[i][j] && (tmpWorkShiftsRecipient[i][j]==0) && (tmpWorkShiftsDonor[i][j]>0)){
+					tmpWorkShiftsRecipient[i][j] = tmpWorkShiftsDonor [i][j];
+					tmpWorkShiftsDonor[i][j] = 0;
+					break;
+				}
+			}
+		}
 	}
 }
