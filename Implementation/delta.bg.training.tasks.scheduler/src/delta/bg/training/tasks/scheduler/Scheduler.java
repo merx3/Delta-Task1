@@ -195,9 +195,15 @@ public class Scheduler {
 	
 	
 	//	TODO: Task 4
+	//Jorkata in the house again :D
 	public void arrangeHours(int day){
-		for (Employee emp : employees) {
-
+		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTime(employees);//shte se opravi tova
+		for(int i=0;i<numEmployees;i++){
+			for(int j=0;j<numShifts;j++){
+				enrollEmployee(employeesTemp.get(i), day, j);
+				if(employeesTemp.get(i).getWorkShifts[day][j] == i)
+					break;
+			}
 		}
 	}
 	
