@@ -165,7 +165,7 @@ public class Scheduler {
 		addMoreHours(3);
 	}	
 	
-	public void interData(){ 
+	/*public void interData(){ 
 
 		int [][] availbaleHours = new int[][]{
 		 		{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13},
@@ -188,7 +188,8 @@ public class Scheduler {
 				{{correct,correct}, {correct,correct}, {wrong,correct}, {correct,correct}, {wrong,correct}, {wrong,wrong}, {wrong,wrong}, {correct,wrong}, {correct,correct}, {wrong,correct}, {wrong,wrong}, {wrong,correct}, {wrong,wrong}, {wrong,wrong} },
 				{{correct,wrong}, {correct,correct}, {correct,wrong}, {correct,correct}, {wrong,correct}, {wrong,wrong}, {wrong,wrong}, {correct,wrong}, {correct,wrong}, {correct,correct}, {wrong,wrong}, {wrong,correct}, {wrong,wrong}, {wrong,wrong} }
 		};
-	}
+	}*/
+	//NO IDEA WHAT THIS METHOD IS DOING ... :( BUT I AM SURE, IT'S NOT WHAT WE WANTED
 	
 	
 	
@@ -299,7 +300,7 @@ public class Scheduler {
 	
 	public static void addMoreHours(int day){
 		// occupiedWorkplace[day][rabotna smqna][rabotno mqsto] 
-		day--; // days array start from 0
+		day--; // days array start from 0	WE SHOULD INPUT THE DAY AS IT IS INDEXED, SO THIS IS NOT NEEDED AND HAS TO BE DELETED
 		for (int shift = 0; shift < numShiftsTemp; shift++) {
 			addMoreHoursForShift(day, shift);
 		}	
