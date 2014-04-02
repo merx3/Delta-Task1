@@ -1,7 +1,14 @@
 package delta.bg.training.tasks.scheduler;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
+<<<<<<< Updated upstream
+=======
+import javax.swing.Popup;
+
+>>>>>>> Stashed changes
 //import delta.bg.training.tasks.scheduler.Employee;
 
 public class Scheduler {
@@ -153,6 +160,8 @@ public class Scheduler {
 
 	// entry point of the Scheduler
 	public static void start() {
+		//populateTempData(); // for task 5
+		addMoreHours(3);
 	}	
 	
 	public void interData(){ 
@@ -195,56 +204,49 @@ public class Scheduler {
 	
 
 	
-	// <Task 5 - TEMPORARY DATA>, for taksk 5, until task 3 is finished
+	 <Task 5 - TEMPORARY DATA>, for taksk 5, until task 3 is finished
 	// should have used interfaces on the skeletion...
-	private class EmployeeTemp {
-		public int id = -1; 
-		public int workHours = -1; 
-		public int [] startHours;
-		public int [] endHours;
-		public int [] availbaleHours;
-		public boolean [][] availableShifts;
-		public int [][] workShifts;
-		
-		public EmployeeTemp(int workHours, int[] startHours, int[] endHours, 
-				int[] availableHours, boolean[][] availableShifts, int[][] workShifts) {
-			this.workHours = workHours;
-			this.startHours = startHours;
-			this.endHours = endHours;
-			this.availbaleHours = availableHours;
-			this.availableShifts = availableShifts;
-			this.workShifts = workShifts;
-		}
-		
-	}
+	private static boolean [] workdaysTemp;
+	private static int numWorkplacesTemp;
+	private static int numEmployeesTemp;
+	private static int workdayStartTemp;
+	private static int workdayEndTemp;
+	private static int numShiftsTemp;
+	private static int hoursInShiftTemp;
+	private static int breakBetweenShiftsTemp;
+	private static int [][][] occupiedWorkplaceTemp;
+	private static LinkedList <EmployeeTemp> employeesTemp = new LinkedList<EmployeeTemp>();
+	private static int minWorkHoursTemp;
+	private static int maxWorkHoursTemp;
+
 	
-	LinkedList <EmployeeTemp> employees = new LinkedList<EmployeeTemp>();
 	
 	// for 4 employees
-	private void populateTempData(){ 
+	private static void populateTempData(){ 
 		int [] workHours = {48, 40, 52, 48};
      // can be workHours = {48, 44, 64, 56};
 		int [][] startHours = new int[][]{			
 		 // Day: 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
-				{13,13,9, 0, 4, 0, 0, 7, 8, 9,10,11, 0, 0},
-				{13,0, 9, 13,4, 0, 0, 7, 8, 0,10,11, 0, 0},
-				{9, 9, 9, 9, 4, 0, 0, 7, 8, 9, 0,11, 0, 0},
-				{9, 9, 9, 9, 4, 0, 0, 7, 8, 9,10,11, 0, 0},
+				{13,13,9, 0, 9, 0, 0,13,13, 9, 9, 9, 0, 0},
+				{13,0, 9,13, 9, 0, 0,13, 9, 0, 9, 9, 0, 0},
+				{9, 9, 9, 9, 9, 0, 0, 9, 9, 9, 0, 9, 0, 0},
+				{9, 9, 9, 9,13, 0, 0, 9, 9, 9, 9, 9, 0, 0},
 		};
 		int [][] endHours = new int[][]{
-		 // Day: 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
-				{1, 1, 2, 0, 4, 0, 0, 7, 8, 9,10,11, 0, 0},
-				{1, 0, 2, 3, 4, 0, 0, 7, 8, 0,10,11, 0, 0},
-				{1, 1, 2, 3, 4, 0, 0, 7, 8, 9, 0,11, 0, 0},
-				{1, 1, 2, 3, 4, 0, 0, 7, 8, 9,10,11, 0, 0},
+		 // Day: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14
+				{18,18,18, 0,18, 0, 0,18,18,18,18,13, 0, 0},
+				{18, 0,13,18,18, 0, 0,18,18, 0,18,18, 0, 0},
+				{18,18,18,18,18, 0, 0,13,18,18, 0,18, 0, 0},
+				{18,18,13,18,18, 0, 0,13,13,18,18,18, 0, 0},
 		};
 		int [][] availbaleHours = new int[][]{
 		 // Day: 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14
-				{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13},
-				{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13},
-				{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13},
-				{0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13},
+				{4, 4, 8, 0, 8, 0, 0, 4, 4, 8, 8, 4, 0, 0},
+				{4, 0, 4, 4, 8, 0, 0, 4, 8, 0, 8, 8, 0, 0},
+				{8, 8, 8, 8, 8, 0, 0, 4, 8, 4, 0, 8, 0, 0},
+				{8, 8, 4, 8, 4, 0, 0, 4, 4, 8, 8, 8, 0, 0},
 		};
+		// The available shifts are the shifts where he doesn't
 		boolean f = false, t = true;
 		boolean [][][] availableShifts = new boolean[][][]{
 		  // Day: 1,	 2,   	3,     4,     5,   	 6,     7,	   8,	  9,     10,    11,    12,    13,   14
@@ -255,12 +257,12 @@ public class Scheduler {
 		};
 		
 		// TODO: Discuss with Joro why this isn't bool
-		boolean [][][] workShifts = new boolean[][][]{
+		int [][][] workShifts = new int[][][]{
 		  // Day: 1,	 2,   	3,     4,     5,   	 6,     7,	   8,	  9,     10,    11,    12,    13,   14
-				{{f,t}, {f,t}, {f,t}, {f,f}, {t,t}, {f,f}, {f,f}, {f,t}, {f,t}, {t,t}, {t,t}, {t,f}, {f,f}, {f,f} },
-				{{f,t}, {f,f}, {t,f}, {f,t}, {t,f}, {f,f}, {f,f}, {f,t}, {t,f}, {f,f}, {t,t}, {t,t}, {f,f}, {f,f} },
-				{{t,t}, {t,t}, {f,t}, {t,t}, {f,t}, {f,f}, {f,f}, {t,f}, {t,t}, {f,t}, {f,f}, {f,t}, {f,f}, {f,f} },
-				{{t,f}, {t,t}, {t,f}, {t,t}, {f,t}, {f,f}, {f,f}, {t,f}, {t,f}, {t,t}, {f,f}, {f,t}, {f,f}, {f,f} }
+				{{0,1}, {0,1}, {0,2}, {0,0}, {1,1}, {0,0}, {0,0}, {0,1}, {0,1}, {1,1}, {1,1}, {1,0}, {0,0}, {0,0} },
+				{{0,2}, {0,0}, {1,0}, {0,1}, {2,0}, {0,0}, {0,0}, {0,2}, {1,0}, {0,0}, {2,2}, {2,1}, {0,0}, {0,0} },
+				{{1,3}, {1,2}, {0,3}, {1,2}, {0,2}, {0,0}, {0,0}, {1,0}, {2,2}, {0,2}, {0,0}, {0,2}, {0,0}, {0,0} },
+				{{2,0}, {2,3}, {2,0}, {2,3}, {0,3}, {0,0}, {0,0}, {2,0}, {3,0}, {2,3}, {0,0}, {0,3}, {0,0}, {0,0} }
 //		 // Optimal solution example:
 //		 // Day:  1,  	 2,   	3,     4,     5,   	 6,     7,	   8,	  9,     10,    11,    12,    13,   14
 //				{{f,t}, {f,t}, {f,t}, {f,f}, {t,t}, {f,f}, {f,f}, {f,t}, {f,t}, {t,t}, {t,t}, {t,f}, {f,f}, {f,f} },
@@ -268,20 +270,95 @@ public class Scheduler {
 //				{{t,t}, {t,t}, {t,t}, {t,t}, {t,t}, {f,f}, {f,f}, {t,f}, {t,t}, {f,t}, {f,f}, {t,t}, {f,f}, {f,f} },
 //				{{t,f}, {t,t}, {t,f}, {t,t}, {f,t}, {f,f}, {f,f}, {t,f}, {t,f}, {t,t}, {t,t}, {f,t}, {f,f}, {f,f} }
 		};
-
-
-		//employees.add(new EmployeeTemp(workHours[1], startHours[1], endHours[1], availbaleHours[1],availableShifts[1], workShifts[1]));
+		
+		// imame v tozi sluchai dni=14, broi na smenite = 2, mesta v smqna = 3
+		// izpolzvam samo occupiedWorkplace, za tova ne inicializiram drugi promenlivi
+		numShiftsTemp = 2;
+		numWorkplacesTemp = 3;
+		occupiedWorkplaceTemp = new int[14][numShiftsTemp][numWorkplacesTemp];
+		for (int i = 0; i < workHours.length; i++) {
+			employeesTemp.add(new EmployeeTemp(i, workHours[i], startHours[i], endHours[i], availbaleHours[i],availableShifts[i], workShifts[i]));
+			for (int day = 0; day < workShifts[i].length; day++) { // the day (1-14, or in the arrray 0-13)
+				for (int shift = 0; shift < numShiftsTemp; shift++) { // the shift (1-2, or in the arrray 0-1)
+					if (workShifts[i][day][shift] != 0) {
+						int workPlaceNumber = workShifts[i][day][shift] - 1; // this is the work place number, which the student has
+						// i is the id of the employee
+						occupiedWorkplaceTemp[day][shift][workPlaceNumber] = i;
+					}
+				}
+			}
+		}
 	}
 	// </Task 5 - TEMPORARY DATA>
 	
-	public void addMoreHours(int day){
+	public static void addMoreHours(int day){
+		// occupiedWorkplace[day][rabotna smqna][rabotno mqsto] 
+		day--; // days array start from 0
+		for (int shift = 0; shift < numShiftsTemp; shift++) {
+			addMoreHoursForShift(day, shift);
+		}	
+	}
+
+	private static void addMoreHoursForShift(int day, int shift) {
+		// find the workplaces in the current shift that are occupied
+		int occupiedCount = 0;
+		for (int workplace = 0; workplace < numWorkplacesTemp; workplace++) {
+			if (occupiedWorkplaceTemp[day][shift][workplace] != 0) {
+				occupiedCount++;
+			}
+		}
 		
-		for (Employee employee : employees) {
-			
+		if (occupiedCount < numWorkplacesTemp) {
+			List<EmployeeTemp> orderedByFreeTime = sortEmployeesByFreeTime(employeesTemp);
+			for (int i =  orderedByFreeTime.size() - 1; i >= 0; i--) {
+				EmployeeTemp emp = orderedByFreeTime.get(i);
+				if (emp.workShifts[day][shift] == 0 && emp.availableShifts[day][shift]) {
+					enrollEmployee(emp, day, shift);
+					addMoreHoursForShift(day,shift);
+					break;
+				}
+			}
+		}
+	}
+	
+	private static void enrollEmployee(EmployeeTemp emp, int day, int shift) {
+		for (int workPlaceNum = 0; workPlaceNum < numWorkplacesTemp; workPlaceNum++) { // the shift (1-2, or in the arrray 0-1)
+			if (occupiedWorkplaceTemp[day][shift][workPlaceNum] == 0) {
+				emp.workShifts[day][shift] = workPlaceNum + 1;
+				occupiedWorkplaceTemp[day][shift][workPlaceNum] = emp.id;
+				return;
+			}
 		}
 		
 	}
+
+	private static List<EmployeeTemp> sortEmployeesByFreeTime(
+			LinkedList<EmployeeTemp> employees) {
+		int currentFreeHours, nextFreeHours;
+		List<EmployeeTemp> orderedEmployees = new ArrayList<EmployeeTemp>(employees);
+		for (int i = 0; i < orderedEmployees.size(); i++) {
+			currentFreeHours = getEmployeeTotalFreeHours(orderedEmployees.get(i));
+			for (int j = i + 1; j < orderedEmployees.size(); j++) {
+				nextFreeHours = getEmployeeTotalFreeHours(orderedEmployees.get(j));
+				if (currentFreeHours > nextFreeHours) {
+					EmployeeTemp swap = orderedEmployees.get(i);
+					orderedEmployees.set(i, orderedEmployees.get(j));
+					orderedEmployees.set(j, swap);
+					currentFreeHours = nextFreeHours;
+				}
+			}
+		}
+		return orderedEmployees;
+	}
 	
+	private static int getEmployeeTotalFreeHours(EmployeeTemp e){
+		int hours = 0;
+		for (int i = 0; i < e.availbaleHours.length; i++) {
+			hours += e.availbaleHours[i];
+		}
+		return hours;
+	}
+
 	// TODO: Task 6
 	public int rearrangeAveraging(){
 		boolean[] workdays = Employee.workdays;
@@ -313,3 +390,28 @@ public class Scheduler {
 		return -1;
 	}
 }
+
+
+
+// <TEMPORARY DATA FOR TASK 5>
+class EmployeeTemp {
+	public int id; 
+	public int workHours = -1; 
+	public int [] startHours;
+	public int [] endHours;
+	public int [] availbaleHours;
+	public boolean [][] availableShifts;
+	public int [][] workShifts;
+	
+	public EmployeeTemp(int id, int workHours, int[] startHours, int[] endHours, 
+			int[] availableHours, boolean[][] availableShifts, int[][] workShifts) {
+		this.id = id;
+		this.workHours = workHours;
+		this.startHours = startHours;
+		this.endHours = endHours;
+		this.availbaleHours = availableHours;
+		this.availableShifts = availableShifts;
+		this.workShifts = workShifts;
+	}			
+}	
+// <//TEMPORARY DATA FOR TASK 5>
