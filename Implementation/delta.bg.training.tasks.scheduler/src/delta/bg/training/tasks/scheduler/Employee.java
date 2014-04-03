@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class Employee implements Comparable<Employee>{
