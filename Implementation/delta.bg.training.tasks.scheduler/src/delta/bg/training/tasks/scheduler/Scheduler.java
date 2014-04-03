@@ -1,6 +1,7 @@
 package delta.bg.training.tasks.scheduler;
 
 import java.util.Collections;
+import java.util.Scanner;
 
 import java.util.LinkedList;
 
@@ -10,18 +11,177 @@ public class Scheduler {
 	// TODO: Task 3
 	// declare private static variables: workdays , numWorkplaces , etc.
 	private static boolean[] workdays;
-	private static int numWorkplaces = 0;
-	private static int numEmployees = 0;
-	private static int workdayStart = 0;
-	private static int workdayEnd = 0;
-	private static int numShifts = 0;
-	private static int hoursInShift = 0;
-	private static int breakBetweenShifts = 0;
+	private static int numWorkplaces;
+	private static int numEmployees;
+	private static int numShifts;
+	private static int workdayStart;
+	private static int workdayEnd;
+	private static int hoursInShift;
+	private static int breakBetweenShifts;
+	private static int minWorkHours;
+	private static int maxWorkHours;
 	private static int [] shiftStart;
 	private static int[][][] occupiedWorkplace;
 	private static LinkedList<Employee> employees;
-	private static int minWorkHours = 0;
-	private static int maxWorkHours = 0;
+	
+	private static Scanner sc = new Scanner(System.in);
+	private static int i;
+	
+	static{
+		System.out.println("WELCOME!");
+		workdays = new boolean[7];
+		for(i=0;i<7;i++){
+			switch(i){
+				case 0: System.out.println("Is monday a workday (Y/N)?: ");
+						break;
+				case 1: System.out.println("Is tuesday a workday (Y/N)?: ");
+						break;
+				case 2: System.out.println("Is wednesday a workday (Y/N)?: ");
+						break;
+				case 3: System.out.println("Is thursday a workday (Y/N)?: ");
+						break;
+				case 4: System.out.println("Is friday a workday (Y/N)?: ");
+						break;
+				case 5: System.out.println("Is saturday a workday (Y/N)?: ");
+						break;
+				case 6: System.out.println("Is sunday a workday (Y/N)?: ");
+						break;
+				default:System.out.println("Error");
+			}
+			while(true){
+				if(sc.nextLine().equalsIgnoreCase("Y")){
+					workdays[i] = true;
+					sc.nextLine();
+					break;
+				}
+				if(sc.nextLine().equalsIgnoreCase("N")){
+					workdays[i] = false;
+					sc.nextLine();
+					break;
+				}
+				else{
+					System.out.println("Please answer with Y or N!");
+					sc.nextLine();
+				}
+			}
+		}
+		System.out.print("Enter the number of the workplaces: ");
+		while(true){
+			numWorkplaces = sc.nextInt();
+			if(numWorkplaces<=0){
+				System.out.println("The number must be positive! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter the number of the employees: ");
+		while(true){
+			numEmployees = sc.nextInt();
+			if(numEmployees<=0){
+				System.out.println("The number must be positive! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter the number of the shifts: ");
+		while(true){
+			numShifts = sc.nextInt();
+			if(numShifts<=0){
+				System.out.println("The number must be positive! Enter again: ");
+			}
+			else if(numShifts>24){
+				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter the workday start hour: ");
+		while(true){
+			workdayStart = sc.nextInt();
+			if(workdayStart<0){
+				System.out.println("The number must be positive or 0! Enter again: ");
+			}
+			else if(workdayStart>24){
+				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter the workday end hour: ");
+		while(true){
+			workdayEnd = sc.nextInt();
+			if(workdayEnd<0){
+				System.out.println("The number must be positive or 0! Enter again: ");
+			}
+			else if(workdayEnd>24){
+				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter how many hours is one shift: ");
+		while(true){
+			hoursInShift = sc.nextInt();
+			if(hoursInShift<1){
+				System.out.println("There is at least 1 hour in shift! Enter again: ");
+			}
+			else if(hoursInShift>8){
+				System.out.println("There cannot be more than 8 hours in shift! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter the break between shifts: ");
+		while(true){
+			breakBetweenShifts = sc.nextInt();
+			if(breakBetweenShifts<0){
+				System.out.println("The number must be positive or 0! Enter again: ");
+			}
+			else if(breakBetweenShifts>24){
+				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.println("Enter the minimum hours every employee must have (for 2 work weeks): ");
+		while(true){
+			minWorkHours = sc.nextInt();
+			if(minWorkHours<=0){
+				System.out.println("The number must be positive! Enter again: ");
+			}
+			else if(minWorkHours>(14*8)){
+				System.out.println("Work Hours cannot be more than the legal value! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.println("Enter the maximum hours every employee must have (for 2 work weeks): ");
+		while(true){
+			maxWorkHours = sc.nextInt();
+			if(maxWorkHours<minWorkHours){
+				System.out.println("The number you entered is less than the minimum hours! Enter again: ");
+			}
+			else if(maxWorkHours>(14*8)){
+				System.out.println("Work Hours cannot be more than the legal value! Enter again: ");
+			}
+			else
+				break;
+		}
+		shiftStart = new int[numShifts];
+		for(i=0;i<numShifts;i++){
+			shiftStart[i] = workdayStart + (hoursInShift * i) + (breakBetweenShifts * i);
+		}
+		occupiedWorkplace = new int[14][numShifts][numWorkplaces];
+		for(int j=0;j<14;j++)
+			for(int k=0;k<numShifts;k++)
+				for(int l=0;l<numWorkplaces;l++)
+					occupiedWorkplace[j][k][l] = 0;
+		employees = new LinkedList <Employee>();
+		for(i=0;i<numEmployees;i++){
+			employees.add(new Employee(i+1,"Employee"));
+		}
+	}
+	
 	
 	// create get-ers and set-ers for every private variable.
 	// Add necessary verifications for correct values on the set-ers

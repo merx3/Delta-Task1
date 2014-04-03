@@ -28,6 +28,7 @@ public class Employee implements Comparable<Employee>{
 	
 	public Employee(int id, String filename) {
 		if(id>0) this.id=id;
+		else return;
 		workHours=0;
 		int res = readEmployeeDataFromFile(filename+id+".in");//filename = Employee, id=4, FILE: Employee4.in
 		if(res != 0) System.out.println("Error!");
@@ -43,7 +44,7 @@ public class Employee implements Comparable<Employee>{
 			this.id = id;
 		}
 		else {
-			System.out.println("Invalid ID number.");
+			System.out.println("Invalid ID number!");
 		}
 	}
 	public int getWorkHours(){
@@ -57,7 +58,7 @@ public class Employee implements Comparable<Employee>{
 			System.out.println("Work Hours cannot be negative!");
 		}
 		else{
-			System.out.println("Work Hours cannot be more than the legal value");
+			System.out.println("Work Hours cannot be more than the legal value!");
 		}
 	}
 	public int[] getStartHours() {
@@ -66,7 +67,7 @@ public class Employee implements Comparable<Employee>{
 	public void setStartHours(int[] startHours) {
 		for(int startHour : startHours){
 			if(startHour<0 || startHour>24){
-				System.out.println("Hours are between 0 and 24");
+				System.out.println("Hours are between 0 and 24!");
 				return;
 			}
 		}
@@ -78,7 +79,7 @@ public class Employee implements Comparable<Employee>{
 	public void setEndHours(int[] endHours) {
 		for(int endHour : endHours){
 			if(endHour<0 || endHour>24){
-				System.out.println("Hours are between 0 and 24");
+				System.out.println("Hours are between 0 and 24!");
 				return;
 			}
 		}
@@ -90,7 +91,7 @@ public class Employee implements Comparable<Employee>{
 	public void setAvailableHours(int[] availableHours) {
 		for(int availableHour : availableHours){
 			if(availableHour<0 || availableHour>24){
-				System.out.println("Hours are between 0 and 24");
+				System.out.println("Hours are between 0 and 24!");
 				return;
 			}
 		}
