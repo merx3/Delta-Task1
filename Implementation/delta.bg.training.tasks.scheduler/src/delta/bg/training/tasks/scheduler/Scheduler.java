@@ -23,6 +23,7 @@ public class Scheduler {
 	private static int numShifts = 0;
 	private static int hoursInShift = 0;
 	private static int breakBetweenShifts = 0;
+	private static int [] shiftStart;
 	private static int[][][] occupiedWorkplace;
 	private static LinkedList<Employee> employees;
 	private static int minWorkHours = 0;
@@ -114,6 +115,15 @@ public class Scheduler {
 		if (breakBetweenShifts > 0 && breakBetweenShifts < 24) {
 			Scheduler.breakBetweenShifts = breakBetweenShifts;
 		}
+	}
+	
+
+	public static int[] getShiftStart() {
+		return shiftStart;
+	}
+
+	public static void setShiftStart(int[] shiftStart) {
+		Scheduler.shiftStart = shiftStart;
 	}
 
 	public static int[][][] getOccupiedWorkplace() {

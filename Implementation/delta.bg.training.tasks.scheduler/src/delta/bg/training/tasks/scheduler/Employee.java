@@ -27,60 +27,115 @@ public class Employee implements Comparable<Employee>{
 	private boolean [][] availableShifts;
 	private int [][] workShifts;
 	
-//	public Employee(int id,String filename)
-//	{
-//		this.id = 0;
-//		this.workHours = 0;
-//		readEmployeeDataFromFile(filename);    //Р�РЅРёС†РёР°Р»РёР·РёСЂР°РјРµ startHours Рё endHours С‡СЂРµР· РјРµС‚РѕРґР°.
-//		/*
-//		 * -availableHours = ?
-//		 * -availableShifts = ?
-//		 * -СЂР°Р·РјРµСЂРЅРѕСЃС‚ РЅР° workshifts = ?
-//		 */
-//	}
-	public int getId()
-	{
+	public Employee(int id, String filename) {
+		if(id>0) this.id=id;
+		workHours=0;
+		int res = readEmployeeDataFromFile(filename+id+".in");//filename = Employee, id=4, FILE: Employee4.in
+		if(res != 0) System.out.println("Error!");
+		setDefaultWorkShifts();
+		setAvailableHoursAndAvailableShifts();
+	}
+
+	public int getId(){
 		return this.id;
 	}
-	public void setId(int id)
-	{
-		if (id>=1)
-		{
-		this.id = id;
+	public void setId(int id){
+		if (id>=1){
+			this.id = id;
 		}
-		else {System.out.println("Invalid ID number.");}
+		else {
+			System.out.println("Invalid ID number.");
+		}
 	}
-	public int getWorkHours()
-	{
+	public int getWorkHours(){
 		return this.workHours;
 	}
-	public void setWorkHours(int hours)
-	{
-		if (hours>=0)
-		{
-		this.workHours = hours;
+	public void setWorkHours(int hours){
+		if (hours>=0 && hours<=(14*8)){
+			this.workHours = hours;
 		}
-		else {System.out.println("Work Hours cannot be negative!");}
+		else if(hours<0){
+			System.out.println("Work Hours cannot be negative!");
+		}
+		else{
+			System.out.println("Work Hours cannot be more than the legal value");
+		}
 	}
-	public int [] getStartHours()
-	{
-		return this.startHours;
+	public int[] getStartHours() {
+		return startHours;
 	}
-	public int [] getEndHours()
-	{
-		return this.endHours;
+	public void setStartHours(int[] startHours) {
+		for(int startHour : startHours){
+			if(startHour<0 || startHour>24){
+				System.out.println("Hours are between 0 and 24");
+				return;
+			}
+		}
+		this.startHours = startHours;
 	}
-	/*
-	 * Р‘РµР· СЃРµС‚ РјРµС‚РѕРґРё Р·Р° РїРѕСЃР»РµРґРЅРёС‚Рµ РґРІРµ, Р»РёРїСЃРІР° РїСЂРѕРІРµСЂРєР° Р·Р° РІР°Р»РёРґРЅРѕСЃС‚ РЅР° СЃСЉС‰РёС‚Рµ.
-	 */
+	public int[] getEndHours() {
+		return endHours;
+	}
+	public void setEndHours(int[] endHours) {
+		for(int endHour : endHours){
+			if(endHour<0 || endHour>24){
+				System.out.println("Hours are between 0 and 24");
+				return;
+			}
+		}
+		this.endHours = endHours;
+	}
+	public int[] getAvailableHours() {
+		return availableHours;
+	}
+	public void setAvailableHours(int[] availableHours) {
+		for(int availableHour : availableHours){
+			if(availableHour<0 || availableHour>24){
+				System.out.println("Hours are between 0 and 24");
+				return;
+			}
+		}
+		this.availableHours = availableHours;
+	}
+	public boolean[][] getAvailableShifts() {
+		return availableShifts;
+	}
+	public void setAvailableShifts(boolean[][] availableShifts) {
+		this.availableShifts = availableShifts;
+	}
+	public int[][] getWorkShifts() {
+		return workShifts;
+	}
+	public void setWorkShifts(int[][] workShifts) {
+		this.workShifts = workShifts;
+	}
+	public void setDefaultWorkShifts(){
+		this.workShifts = new int[14][Scheduler.getNumShifts()];
+		for(int i=0;i<14;i++)
+			for(int j=0;j<Scheduler.getNumShifts();j++)
+				this.workShifts[i][j]=0;
+	}
 	
-	
-	public Employee(int id, String filename) {
+	public void setAvailableHoursAndAvailableShifts(){
+		int [] shiftStartTmp = Scheduler.getShiftStart();
+		for(int i=0;i<14;i++){
+			availableHours[i] = (endHours[i] - startHours[i]);
+			for(int j=0;j<Scheduler.getNumShifts();j++){
+				if(startHours[i] <= shiftStartTmp[j] && endHours[i] >= (shiftStartTmp[j] + Scheduler.getHoursInShift()))
+					availableShifts[i][j] = true;
+				else
+					availableShifts[i][j] = false;
+			}
+		}
 	}
+	
 	
 	// TODO: Task 2
 	public int readEmployeeDataFromFile(String filename){
-		int counter = 0,i=0;
+		int counter = 0;
+		int i=0;
+		this.startHours = new int [14];
+		this.endHours = new int [14];
 		File file;
 		Scanner reader;
 		try{
@@ -162,13 +217,13 @@ public class Employee implements Comparable<Employee>{
 		fileWriter.close();
 		return 0;
 	}
-	public void printSpec(int position,PrintStream fileWriter)
-			{
-			for (int j = 1;j < this.workShifts[position].length;j++)
-				{
-					fileWriter.printf("%d ",j);
-				}
+	public void printSpec(int day,PrintStream fileWriter){
+		for (int i = 0;i < Scheduler.getNumShifts(); i++){
+			if(this.workShifts[day][i] > 0){
+				fileWriter.printf("%d ",i);
 			}
+		}
+	}
 	
 	public int compareTo(Employee em) {
 		if(this.workHours > em.workHours) return 1; //tuk moje da trqbva da e < znaka, ne sum siguren!
