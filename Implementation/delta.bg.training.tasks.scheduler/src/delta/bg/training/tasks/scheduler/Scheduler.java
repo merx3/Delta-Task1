@@ -107,18 +107,6 @@ public class Scheduler {
 			else
 				break;
 		}
-		System.out.print("Enter the workday end hour: ");
-		while(true){
-			workdayEnd = sc.nextInt();
-			if(workdayEnd<0){
-				System.out.println("The number must be positive or 0! Enter again: ");
-			}
-			else if(workdayEnd>24){
-				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
-			}
-			else
-				break;
-		}
 		System.out.print("Enter how many hours is one shift: ");
 		while(true){
 			hoursInShift = sc.nextInt();
@@ -138,6 +126,21 @@ public class Scheduler {
 				System.out.println("The number must be positive or 0! Enter again: ");
 			}
 			else if(breakBetweenShifts>24){
+				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+			}
+			else
+				break;
+		}
+		System.out.print("Enter the workday end hour: ");
+		while(true){
+			workdayEnd = sc.nextInt();
+			if(workdayEnd<=workdayStart){
+				System.out.println("The end of the workday must be after the start! Enter again: ");
+			}
+			if(workdayEnd<(workdayStart + (numShifts*(hoursInShift+breakBetweenShifts)) - breakBetweenShifts)){
+				System.out.println("The value is not possible - the number of shifts is too big! Enter again: ");
+			}
+			if(workdayEnd>24){
 				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
 			}
 			else
@@ -620,6 +623,9 @@ public class Scheduler {
 				if(tmpAvailableShiftsRecipient[i][j] && (tmpWorkShiftsRecipient[i][j]==0) && (tmpWorkShiftsDonor[i][j]>0)){
 					tmpWorkShiftsRecipient[i][j] = tmpWorkShiftsDonor [i][j];
 					tmpWorkShiftsDonor[i][j] = 0;
+					employees.get(indexOfRecipient).setWorkShifts(tmpWorkShiftsRecipient);
+					employees.get(indexOfDonor).setWorkShifts(tmpWorkShiftsDonor);
+					occupiedWorkplace[i][j][tmpWorkShiftsRecipient[i][j]] = indexOfRecipient;
 					return 0;
 				}
 			}

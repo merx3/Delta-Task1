@@ -149,6 +149,7 @@ public class Employee implements Comparable<Employee>{
 					if (s.isEmpty()==false)
 					{
 						String[] splitted = s.split("[ ]");
+						if(splitted.length == 1) i++;//if the employee is unavailable in this day
 						this.startHours[i] = Integer.parseInt(splitted[1]);
 						this.endHours[i++] = Integer.parseInt(splitted[2]);
 					}
