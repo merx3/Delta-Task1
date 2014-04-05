@@ -32,36 +32,34 @@ public class Scheduler {
 		workdays = new boolean[7];
 		for(i=0;i<7;i++){
 			switch(i){
-				case 0: System.out.println("Is monday a workday (Y/N)?: ");
+				case 0: System.out.print("Is monday a workday (Y/N)?: ");
 						break;
-				case 1: System.out.println("Is tuesday a workday (Y/N)?: ");
+				case 1: System.out.print("Is tuesday a workday (Y/N)?: ");
 						break;
-				case 2: System.out.println("Is wednesday a workday (Y/N)?: ");
+				case 2: System.out.print("Is wednesday a workday (Y/N)?: ");
 						break;
-				case 3: System.out.println("Is thursday a workday (Y/N)?: ");
+				case 3: System.out.print("Is thursday a workday (Y/N)?: ");
 						break;
-				case 4: System.out.println("Is friday a workday (Y/N)?: ");
+				case 4: System.out.print("Is friday a workday (Y/N)?: ");
 						break;
-				case 5: System.out.println("Is saturday a workday (Y/N)?: ");
+				case 5: System.out.print("Is saturday a workday (Y/N)?: ");
 						break;
-				case 6: System.out.println("Is sunday a workday (Y/N)?: ");
+				case 6: System.out.print("Is sunday a workday (Y/N)?: ");
 						break;
-				default:System.out.println("Error");
+				default:System.out.print("Error");
 			}
 			while(true){
-				if(sc.nextLine().equalsIgnoreCase("Y")){
+				String answer = sc.nextLine();
+				if(answer.equalsIgnoreCase("Y")){
 					workdays[i] = true;
-					sc.nextLine();
 					break;
 				}
-				if(sc.nextLine().equalsIgnoreCase("N")){
+				else if(answer.equalsIgnoreCase("N")){
 					workdays[i] = false;
-					sc.nextLine();
 					break;
 				}
 				else{
 					System.out.println("Please answer with Y or N!");
-					sc.nextLine();
 				}
 			}
 		}
@@ -146,7 +144,7 @@ public class Scheduler {
 			else
 				break;
 		}
-		System.out.println("Enter the minimum hours every employee must have (for 2 work weeks): ");
+		System.out.print("Enter the minimum hours every employee must have (for 2 work weeks): ");
 		while(true){
 			minWorkHours = sc.nextInt();
 			if(minWorkHours<=0){
@@ -158,7 +156,7 @@ public class Scheduler {
 			else
 				break;
 		}
-		System.out.println("Enter the maximum hours every employee must have (for 2 work weeks): ");
+		System.out.print("Enter the maximum hours every employee must have (for 2 work weeks): ");
 		while(true){
 			maxWorkHours = sc.nextInt();
 			if(maxWorkHours<minWorkHours){
@@ -172,7 +170,7 @@ public class Scheduler {
 		}
 		shiftStart = new int[numShifts];
 		for(i=0;i<numShifts;i++){
-			shiftStart[i] = workdayStart + (hoursInShift * i) + (breakBetweenShifts * i);
+			shiftStart[i] = workdayStart + hoursInShift + breakBetweenShifts;
 		}
 		occupiedWorkplace = new int[14][numShifts][numWorkplaces];
 		for(int j=0;j<14;j++)

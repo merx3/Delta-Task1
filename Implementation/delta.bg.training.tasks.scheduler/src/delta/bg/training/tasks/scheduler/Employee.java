@@ -32,6 +32,8 @@ public class Employee implements Comparable<Employee>{
 		workHours=0;
 		int res = readEmployeeDataFromFile(filename+id+".in");//filename = Employee, id=4, FILE: Employee4.in
 		if(res != 0) System.out.println("Error!");
+		availableHours = new int[14];
+		availableShifts = new boolean[14][Scheduler.getNumShifts()];
 		setDefaultWorkShifts();
 		setAvailableHoursAndAvailableShifts();
 	}
