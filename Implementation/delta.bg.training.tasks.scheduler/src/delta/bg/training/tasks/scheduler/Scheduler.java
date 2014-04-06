@@ -372,7 +372,7 @@ public class Scheduler {
 				{{correct,wrong}, {correct,correct}, {correct,wrong}, {correct,correct}, {wrong,correct}, {wrong,wrong}, {wrong,wrong}, {correct,wrong}, {correct,wrong}, {correct,correct}, {wrong,wrong}, {wrong,correct}, {wrong,wrong}, {wrong,wrong} }
 		};
 	}*/
-	//NO IDEA WHAT THIS METHOD IS DOING ... :( BUT I AM SURE, IT'S NOT WHAT WE WANTED
+	
 	
 	
 	
