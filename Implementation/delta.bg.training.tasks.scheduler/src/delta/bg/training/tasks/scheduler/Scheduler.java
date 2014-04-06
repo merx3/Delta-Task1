@@ -67,7 +67,7 @@ public class Scheduler {
 		while(true){
 			numWorkplaces = sc.nextInt();
 			if(numWorkplaces<=0){
-				System.out.println("The number must be positive! Enter again: ");
+				System.out.print("The number must be positive!\nEnter again: ");
 			}
 			else
 				break;
@@ -76,7 +76,7 @@ public class Scheduler {
 		while(true){
 			numEmployees = sc.nextInt();
 			if(numEmployees<=0){
-				System.out.println("The number must be positive! Enter again: ");
+				System.out.print("The number must be positive!\nEnter again: ");
 			}
 			else
 				break;
@@ -85,10 +85,10 @@ public class Scheduler {
 		while(true){
 			numShifts = sc.nextInt();
 			if(numShifts<=0){
-				System.out.println("The number must be positive! Enter again: ");
+				System.out.print("The number must be positive!\nEnter again: ");
 			}
 			else if(numShifts>24){
-				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+				System.out.print("The number must be less than 24, or at most 24!\nEnter again: ");
 			}
 			else
 				break;
@@ -97,61 +97,79 @@ public class Scheduler {
 		while(true){
 			workdayStart = sc.nextInt();
 			if(workdayStart<0){
-				System.out.println("The number must be positive or 0! Enter again: ");
+				System.out.print("The number must be positive or 0!\nEnter again: ");
 			}
 			else if(workdayStart>24){
-				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+				System.out.print("The number must be less than 24, or at most 24!\nEnter again: ");
 			}
 			else
 				break;
 		}
 		System.out.print("Enter how many hours is one shift: ");
 		while(true){
+			int countErr = 0;
 			hoursInShift = sc.nextInt();
 			if(hoursInShift<1){
-				System.out.println("There is at least 1 hour in shift! Enter again: ");
+				System.out.print("There is at least 1 hour in shift!\nEnter again: ");
+				countErr++;
 			}
-			else if(hoursInShift>8){
-				System.out.println("There cannot be more than 8 hours in shift! Enter again: ");
+			if(hoursInShift>8){
+				System.out.print("There cannot be more than 8 hours in shift!\nEnter again: ");
+				countErr++;
 			}
-			else
+			if((numShifts*hoursInShift + workdayStart) > 24){
+				System.out.print("The number of shifts and the hours in shift cannot be completed in a workday!\nEnter again: ");
+				countErr++;
+			}
+			if(countErr == 0)
 				break;
 		}
 		System.out.print("Enter the break between shifts: ");
 		while(true){
+			int countErr = 0;
 			breakBetweenShifts = sc.nextInt();
 			if(breakBetweenShifts<0){
-				System.out.println("The number must be positive or 0! Enter again: ");
+				System.out.print("The number must be positive or 0!\nEnter again: ");
+				countErr++;
 			}
-			else if(breakBetweenShifts>24){
-				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+			if(breakBetweenShifts>=24){
+				System.out.print("The number must be less than 24!\nEnter again: ");
+				countErr++;
 			}
-			else
+			if((numShifts*hoursInShift + (numShifts - 1)*breakBetweenShifts + workdayStart) > 24){
+				System.out.print("The number of shifts and the hours in shift cannot be completed in a workday!\nEnter again: ");
+				countErr++;
+			}
+			if(countErr == 0)
 				break;
 		}
 		System.out.print("Enter the workday end hour: ");
 		while(true){
+			int countErr = 0;
 			workdayEnd = sc.nextInt();
 			if(workdayEnd<=workdayStart){
-				System.out.println("The end of the workday must be after the start! Enter again: ");
-			}
-			if(workdayEnd<(workdayStart + (numShifts*(hoursInShift+breakBetweenShifts)) - breakBetweenShifts)){
-				System.out.println("The value is not possible - the number of shifts is too big! Enter again: ");
+				System.out.print("The end of the workday must be after the start!\nEnter again: ");
+				countErr++;
 			}
 			if(workdayEnd>24){
-				System.out.println("The number must be less than 24, or at most 24! Enter again: ");
+				System.out.print("The number must be less than 24, or at most 24!\nEnter again: ");
+				countErr++;
 			}
-			else
+			if(workdayEnd<(workdayStart + (numShifts*(hoursInShift+breakBetweenShifts)) - breakBetweenShifts)){
+				System.out.print("The value is not possible - the number of shifts is too big!\nEnter again: ");
+				countErr++;
+			}
+			if(countErr == 0)
 				break;
 		}
 		System.out.print("Enter the minimum hours every employee must have (for 2 work weeks): ");
 		while(true){
 			minWorkHours = sc.nextInt();
 			if(minWorkHours<=0){
-				System.out.println("The number must be positive! Enter again: ");
+				System.out.print("The number must be positive!\nEnter again: ");
 			}
 			else if(minWorkHours>(14*8)){
-				System.out.println("Work Hours cannot be more than the legal value! Enter again: ");
+				System.out.print("Work Hours cannot be more than the legal value!\nEnter again: ");
 			}
 			else
 				break;
@@ -160,17 +178,17 @@ public class Scheduler {
 		while(true){
 			maxWorkHours = sc.nextInt();
 			if(maxWorkHours<minWorkHours){
-				System.out.println("The number you entered is less than the minimum hours! Enter again: ");
+				System.out.print("The number you entered is less than the minimum hours!\nEnter again: ");
 			}
 			else if(maxWorkHours>(14*8)){
-				System.out.println("Work Hours cannot be more than the legal value! Enter again: ");
+				System.out.print("Work Hours cannot be more than the legal value!\nEnter again: ");
 			}
 			else
 				break;
 		}
 		shiftStart = new int[numShifts];
 		for(i=0;i<numShifts;i++){
-			shiftStart[i] = workdayStart + hoursInShift + breakBetweenShifts;
+			shiftStart[i] = workdayStart + (hoursInShift + breakBetweenShifts) * i;
 		}
 		occupiedWorkplace = new int[14][numShifts][numWorkplaces];
 		for(int j=0;j<14;j++)
@@ -325,10 +343,10 @@ public class Scheduler {
 	// has the read functionality
 
 	// entry point of the Scheduler
-	public static void start() {
-		//populateTempData(); // for task 5
-		addMoreHours(3);
-	}	
+//	public static void start() {
+//		//populateTempData(); // for task 5
+//		addMoreHours(3);
+//	}	
 	
 	/*public void interData(){ 
 
