@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
+//import java.util.Arrays;
 import java.util.Scanner;
 
 public class Employee implements Comparable<Employee>{
@@ -36,6 +37,7 @@ public class Employee implements Comparable<Employee>{
 		availableShifts = new boolean[14][Scheduler.getNumShifts()];
 		setDefaultWorkShifts();
 		setAvailableHoursAndAvailableShifts();
+		//printEmployeeData();
 	}
 
 	public int getId(){
@@ -151,9 +153,14 @@ public class Employee implements Comparable<Employee>{
 					if (s.isEmpty()==false)
 					{
 						String[] splitted = s.split("[ ]");
-						if(splitted.length == 1) i++;//if the employee is unavailable in this day
-						this.startHours[i] = Integer.parseInt(splitted[1]);
-						this.endHours[i++] = Integer.parseInt(splitted[2]);
+						if(splitted.length == 1){//if the employee is unavailable in this day
+							this.startHours[i] = 0;
+							this.endHours[i++] = 0;
+						}
+						else{
+							this.startHours[i] = Integer.parseInt(splitted[1]);
+							this.endHours[i++] = Integer.parseInt(splitted[2]);
+						}
 					}
 				}
 				counter++;
@@ -163,12 +170,13 @@ public class Employee implements Comparable<Employee>{
 		reader.close();
 		return 0;
 	}
-	
+
 	public int writeEmployeeScheduleToFile(String filename){
 	PrintStream fileWriter;
 		try{
 			fileWriter = new PrintStream(filename,"windows-1251");
-			fileWriter.printf("Hours scheduled for the two weeks:%d\n\n",this.workHours);
+			fileWriter.printf("Hours scheduled for the two weeks: %d",this.workHours);
+			fileWriter.println();
 			fileWriter.println("First Week");
 			fileWriter.printf("Monday ");
 			printSpec(0,fileWriter);
@@ -191,7 +199,7 @@ public class Employee implements Comparable<Employee>{
 			fileWriter.printf("Sunday ");
 			printSpec(6,fileWriter);
 			fileWriter.println();
-			fileWriter.printf("Second Week");
+			fileWriter.println("Second Week");
 			fileWriter.printf("Monday ");
 			printSpec(7,fileWriter);
 			fileWriter.println();
@@ -223,7 +231,7 @@ public class Employee implements Comparable<Employee>{
 	public void printSpec(int day,PrintStream fileWriter){
 		for (int i = 0;i < Scheduler.getNumShifts(); i++){
 			if(this.workShifts[day][i] > 0){
-				fileWriter.printf("%d ",i);
+				fileWriter.printf("%d ",i+1);
 			}
 		}
 	}
@@ -233,6 +241,19 @@ public class Employee implements Comparable<Employee>{
 		else return 0;
 	}
 
+	public void printEmployeeData() {//tmp method for printing all the employee's fields
+		System.out.println(id);
+		System.out.println(workHours);
+//		Arrays.toString(startHours);
+//		Arrays.toString(endHours);
+//		Arrays.toString(availableHours);
+//		for(int i=0;i<14;i++){
+//			for(int j=0;j<Scheduler.getNumShifts();j++){
+//				System.out.print(availableShifts[i][j] +" ");
+//				System.out.println(workShifts[i][j]);
+//			}
+//		}
+	}
 	
 
 	

@@ -372,20 +372,23 @@ public class Scheduler {
 				{{correct,wrong}, {correct,correct}, {correct,wrong}, {correct,correct}, {wrong,correct}, {wrong,wrong}, {wrong,wrong}, {correct,wrong}, {correct,wrong}, {correct,correct}, {wrong,wrong}, {wrong,correct}, {wrong,wrong}, {wrong,wrong} }
 		};
 	}*/
-	//NO IDEA WHAT THIS METHOD IS DOING ... :( BUT I AM SURE, IT'S NOT WHAT WE WANTED
+	
 	
 	
 	
 	
 	//	TODO: Task 4
 	//Jorkata in the house again :D
-	public void arrangeHours(int day){
-		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);//shte se opravi tova
+	public static void arrangeHours(int day){
+		int result;
+		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);
 		for(int i=0;i<numEmployees;i++){
 			for(int j=0;j<numShifts;j++){
-				enrollEmployee(employeesTemp.get(i), day, j);
-				if(employeesTemp.get(i).getWorkShifts()[day][j] == i)
-					break;
+				if(employeesTemp.get(i).getAvailableShifts()[day][j]){
+					result = enrollEmployee(employeesTemp.get(i), day, j);
+					if(result == 0)
+						break;
+				}
 			}
 		}
 	}
@@ -489,7 +492,7 @@ public class Scheduler {
 	
 	public static void addMoreHours(int day){
 		// occupiedWorkplace[day][rabotna smqna][rabotno mqsto] 
-		day--; // days array start from 0	WE SHOULD INPUT THE DAY AS IT IS INDEXED, SO THIS IS NOT NEEDED AND HAS TO BE DELETED
+		//day--; // days array start from 0	WE SHOULD INPUT THE DAY AS IT IS INDEXED, SO THIS IS NOT NEEDED AND HAS TO BE DELETED
 		for (int shift = 0; shift < numShifts; shift++) {
 			addMoreHoursForShift(day, shift);
 		}	
@@ -517,15 +520,16 @@ public class Scheduler {
 		}
 	}
 	
-	private static void enrollEmployee(Employee employee, int day, int shift) {
+	private static int enrollEmployee(Employee employee, int day, int shift) {
 		for (int workPlaceNum = 0; workPlaceNum < numWorkplaces; workPlaceNum++) { // the shift (1-2, or in the arrray 0-1)
 			if (occupiedWorkplace[day][shift][workPlaceNum] == 0) {
 				employee.getWorkShifts()[day][shift] = workPlaceNum + 1;
 				occupiedWorkplace[day][shift][workPlaceNum] = employee.getId();
-				return;
+				employee.setWorkHours(employee.getWorkHours() + hoursInShift);
+				return 0;
 			}
 		}
-		
+		return 1;
 	}
 
 	private static LinkedList<Employee> sortEmployeesByFreeTimeInDay(
@@ -584,7 +588,7 @@ public class Scheduler {
 	}*/
 	
 	//Task6 : Georgi
-	public void rearrangeAveraging(){
+	public static void rearrangeAveraging(){
 		int countWorkDays=0;
 		int i,j;
 		for(i=0;i<7;i++){
@@ -629,7 +633,7 @@ public class Scheduler {
 		}
 	}
 	
-	public int exchangeHours(int indexOfRecipient, int indexOfDonor){
+	public static int exchangeHours(int indexOfRecipient, int indexOfDonor){
 		int i,j;
 		boolean [][] tmpAvailableShiftsRecipient = employees.get(indexOfRecipient).getAvailableShifts();
 		int [][] tmpWorkShiftsRecipient = employees.get(indexOfRecipient).getWorkShifts();
@@ -642,6 +646,8 @@ public class Scheduler {
 					employees.get(indexOfRecipient).setWorkShifts(tmpWorkShiftsRecipient);
 					employees.get(indexOfDonor).setWorkShifts(tmpWorkShiftsDonor);
 					occupiedWorkplace[i][j][tmpWorkShiftsRecipient[i][j]] = indexOfRecipient;
+					employees.get(indexOfRecipient).setWorkHours(employees.get(indexOfRecipient).getWorkHours() + hoursInShift);
+					employees.get(indexOfDonor).setWorkHours(employees.get(indexOfDonor).getWorkHours() - hoursInShift);
 					return 0;
 				}
 			}
