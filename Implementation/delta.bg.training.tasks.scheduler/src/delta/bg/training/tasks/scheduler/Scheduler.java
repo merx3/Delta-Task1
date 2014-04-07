@@ -380,11 +380,12 @@ public class Scheduler {
 	//	TODO: Task 4
 	//Jorkata in the house again :D
 	public static void arrangeHours(int day){
-		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);//shte se opravi tova
+		int result;
+		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);
 		for(int i=0;i<numEmployees;i++){
 			for(int j=0;j<numShifts;j++){
-				enrollEmployee(employeesTemp.get(i), day, j);
-				if(employeesTemp.get(i).getWorkShifts()[day][j] == i)
+				result = enrollEmployee(employeesTemp.get(i), day, j);
+				if(result == 0)
 					break;
 			}
 		}
@@ -517,16 +518,16 @@ public class Scheduler {
 		}
 	}
 	
-	private static void enrollEmployee(Employee employee, int day, int shift) {
+	private static int enrollEmployee(Employee employee, int day, int shift) {
 		for (int workPlaceNum = 0; workPlaceNum < numWorkplaces; workPlaceNum++) { // the shift (1-2, or in the arrray 0-1)
 			if (occupiedWorkplace[day][shift][workPlaceNum] == 0) {
 				employee.getWorkShifts()[day][shift] = workPlaceNum + 1;
 				occupiedWorkplace[day][shift][workPlaceNum] = employee.getId();
 				employee.setWorkHours(employee.getWorkHours() + hoursInShift);
-				return;
+				return 0;
 			}
 		}
-		
+		return 1;
 	}
 
 	private static LinkedList<Employee> sortEmployeesByFreeTimeInDay(

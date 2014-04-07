@@ -175,7 +175,8 @@ public class Employee implements Comparable<Employee>{
 	PrintStream fileWriter;
 		try{
 			fileWriter = new PrintStream(filename,"windows-1251");
-			fileWriter.printf("Hours scheduled for the two weeks:%d\n\n",this.workHours);
+			fileWriter.printf("Hours scheduled for the two weeks: %d",this.workHours);
+			fileWriter.println();
 			fileWriter.println("First Week");
 			fileWriter.printf("Monday ");
 			printSpec(0,fileWriter);
@@ -230,7 +231,7 @@ public class Employee implements Comparable<Employee>{
 	public void printSpec(int day,PrintStream fileWriter){
 		for (int i = 0;i < Scheduler.getNumShifts(); i++){
 			if(this.workShifts[day][i] > 0){
-				fileWriter.printf("%d ",i);
+				fileWriter.printf("%d ",i+1);
 			}
 		}
 	}
