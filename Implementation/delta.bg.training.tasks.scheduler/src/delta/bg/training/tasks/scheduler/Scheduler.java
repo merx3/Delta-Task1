@@ -723,8 +723,8 @@ public class Scheduler {
 		for(int i=0;i<14;i++){
 			for(int j=0;j<numShifts;j++){
 				if(empTemp.get(indexOfRecipient).getAvailableShifts()[i][j] && empTemp.get(indexOfDonor).getWorkShifts()[i][j]>0){
-					result1 = enrollEmployee(employees.get((empTemp.get(indexOfRecipient).getId())-1), i, j);
-					result2 = dismissEmployee(employees.get((empTemp.get(indexOfDonor).getId())-1), i, j);
+					result1 = dismissEmployee(employees.get((empTemp.get(indexOfDonor).getId())-1), i, j);
+					result2 = enrollEmployee(employees.get((empTemp.get(indexOfRecipient).getId())-1), i, j);
 					if(result1 == 0 && result2 == 0) return 0;
 				}
 			}
