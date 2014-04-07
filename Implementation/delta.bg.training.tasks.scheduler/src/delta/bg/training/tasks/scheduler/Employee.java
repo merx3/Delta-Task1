@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+//import java.util.Arrays;
 import java.util.Scanner;
 
 public class Employee implements Comparable<Employee>{
@@ -37,7 +37,7 @@ public class Employee implements Comparable<Employee>{
 		availableShifts = new boolean[14][Scheduler.getNumShifts()];
 		setDefaultWorkShifts();
 		setAvailableHoursAndAvailableShifts();
-		printEmployeeData();
+		//printEmployeeData();
 	}
 
 	public int getId(){
@@ -240,20 +240,18 @@ public class Employee implements Comparable<Employee>{
 		else return 0;
 	}
 
-	private void printEmployeeData() {//tmp method for printing all the employee's fields
+	public void printEmployeeData() {//tmp method for printing all the employee's fields
 		System.out.println(id);
 		System.out.println(workHours);
-		Arrays.toString(startHours);
-		Arrays.toString(endHours);
-		Arrays.toString(availableHours);
-		for(int i=0;i<14;i++){
-			for(int j=0;j<Scheduler.getNumShifts();j++){
-				System.out.print(availableShifts[i][j] +" ");
-				System.out.println(workShifts[i][j]);
-			}
-		}
-		
-		
+//		Arrays.toString(startHours);
+//		Arrays.toString(endHours);
+//		Arrays.toString(availableHours);
+//		for(int i=0;i<14;i++){
+//			for(int j=0;j<Scheduler.getNumShifts();j++){
+//				System.out.print(availableShifts[i][j] +" ");
+//				System.out.println(workShifts[i][j]);
+//			}
+//		}
 	}
 	
 
