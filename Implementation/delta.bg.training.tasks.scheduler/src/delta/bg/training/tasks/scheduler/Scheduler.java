@@ -384,9 +384,11 @@ public class Scheduler {
 		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);
 		for(int i=0;i<numEmployees;i++){
 			for(int j=0;j<numShifts;j++){
-				result = enrollEmployee(employeesTemp.get(i), day, j);
-				if(result == 0)
-					break;
+				if(employeesTemp.get(i).getAvailableShifts()[day][j]){
+					result = enrollEmployee(employeesTemp.get(i), day, j);
+					if(result == 0)
+						break;
+				}
 			}
 		}
 	}
