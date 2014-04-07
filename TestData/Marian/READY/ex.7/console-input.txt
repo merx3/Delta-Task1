@@ -5,7 +5,7 @@ Is thursday a workday (Y/N)?: y
 Is friday a workday (Y/N)?: y
 Is saturday a workday (Y/N)?: n
 Is sunday a workday (Y/N)?: n
-Enter the number of the workplaces: 3
+Enter the number of the workplaces: 4
 Enter the number of the employees: 4
 Enter the number of the shifts: 2
 Enter the workday start hour: 9
@@ -23,7 +23,7 @@ y
 y
 n
 n
-3
+4
 4
 2
 9

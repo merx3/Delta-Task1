@@ -104,3 +104,15 @@ E4: 1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  0  0  1  1  1  1  1  1  1  1  1
 
 Max people in shift: 2
 Perfect solution: None- Everyone can attend at their free time, except E4 - he has only non working days free
+
+Example 9:
+
+xx [D1,   D2,   D3,   D4,   D5,   D6,   D7,   D8,   D9,   D10,  D11,  D12,  D13,  D14] 
+xx [s1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2|S1,S2] 
+E1: 1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  1  1  1  1  1  1  1
+E2: 1  0  0  0  1  1  1  1  1  1  1  1  1  1  1  1  0  0  1  1  1  1  1  1  1  1  1  1
+E3: 1  1  1  1  0  0  0  0  0  1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  1  1  1  1
+E4: 1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  0  0  0  0  0  0  0 
+
+Max people in shift: 2
+Perfect solution: Every time someone has a free slot, he attends
