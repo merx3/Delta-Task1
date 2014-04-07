@@ -1,6 +1,6 @@
 package delta.bg.training.tasks.scheduler;
 
-import java.util.Collections;
+//import java.util.Collections;
 import java.util.Scanner;
 
 import java.util.LinkedList;
@@ -531,6 +531,18 @@ public class Scheduler {
 		}
 		return 1;
 	}
+	
+	private static int dismissEmployee(Employee employee, int day, int shift){
+		for(int workPlaceNum = 0; workPlaceNum < numWorkplaces; workPlaceNum++){
+			if(occupiedWorkplace[day][shift][workPlaceNum] == employee.getId()){
+				employee.getWorkShifts()[day][shift] = 0;
+				occupiedWorkplace[day][shift][workPlaceNum] = 0;
+				employee.setWorkHours(employee.getWorkHours() - hoursInShift);
+				return 0;
+			}
+		}
+		return 1;
+	}
 
 	private static LinkedList<Employee> sortEmployeesByFreeTimeInDay(
 			LinkedList<Employee> employees, int day) {
@@ -550,6 +562,27 @@ public class Scheduler {
 		}
 		return orderedEmployees;
 	}
+	
+	private static LinkedList<Employee> sortEmployeesByWorkHours(
+			LinkedList<Employee> employees) {
+		int currentWorkHours, nextWorkHours;
+		LinkedList<Employee> orderedEmployees = new LinkedList<Employee>(employees);
+		for (int i = 0; i < orderedEmployees.size(); i++) {
+			currentWorkHours = orderedEmployees.get(i).getWorkHours();
+			for (int j = i + 1; j < orderedEmployees.size(); j++) {
+				nextWorkHours = orderedEmployees.get(j).getWorkHours();
+				if (currentWorkHours > nextWorkHours) {
+					Employee swap = orderedEmployees.get(i);
+					orderedEmployees.set(i, orderedEmployees.get(j));
+					orderedEmployees.set(j, swap);
+					currentWorkHours = nextWorkHours;
+				}
+			}
+		}
+		return orderedEmployees;
+	}
+	
+	
 
 	// TODO: Task 6
 	/*public int rearrangeAveraging(){
@@ -588,67 +621,111 @@ public class Scheduler {
 	}*/
 	
 	//Task6 : Georgi
+//	public static void rearrangeAveraging(){
+//		int countWorkDays=0;
+//		int i,j;
+//		for(i=0;i<7;i++){
+//			if(workdays[i]){
+//				countWorkDays++;
+//			}
+//		}
+//		countWorkDays *= 2; //Vsichki izchislenia sa ni za 2-te sedmici ednovremenno
+//		final double averageWorkHours = ( countWorkDays * numShifts * hoursInShift * numWorkplaces )/numEmployees ;
+//		int indexOfEmployeeWithMinHours = 0;
+//		int indexOfEmployeeWithMaxHours = numEmployees - 1;
+//		int result = -1;
+//		int countAvailableShifts = 0;
+//		boolean [][] tmpAvailableShifts = null;
+//		while(true){
+//			Collections.sort(employees);
+//			if((employees.get(indexOfEmployeeWithMinHours).getWorkHours() + hoursInShift) <= averageWorkHours){
+//				while(true){
+//					if((employees.get(indexOfEmployeeWithMaxHours).getWorkHours() - hoursInShift) >= averageWorkHours){
+//						result = exchangeHours(indexOfEmployeeWithMinHours, indexOfEmployeeWithMaxHours);
+//						if(result!=0){
+//							indexOfEmployeeWithMaxHours--;
+//						}
+//						else
+//							break;
+//					}
+//					else
+//						break;
+//				}
+//				tmpAvailableShifts = employees.get(indexOfEmployeeWithMinHours).getAvailableShifts();
+//				for(i=0; i<14; i++)
+//					for(j=0; j<numShifts;j++)
+//						if(tmpAvailableShifts[i][j])
+//							countAvailableShifts++;
+//				if(countAvailableShifts * hoursInShift < averageWorkHours)
+//					indexOfEmployeeWithMinHours++;
+//				else
+//					break;
+//			}
+//			else
+//				break;
+//		}
+//	}
+//	
+//	public static int exchangeHours(int indexOfRecipient, int indexOfDonor){
+//		int i,j;
+//		boolean [][] tmpAvailableShiftsRecipient = employees.get(indexOfRecipient).getAvailableShifts();
+//		int [][] tmpWorkShiftsRecipient = employees.get(indexOfRecipient).getWorkShifts();
+//		int [][] tmpWorkShiftsDonor = employees.get(indexOfDonor).getWorkShifts();
+//		for(i=0;i<14;i++){
+//			for(j=0;j<numShifts;j++){
+//				if(tmpAvailableShiftsRecipient[i][j] && (tmpWorkShiftsRecipient[i][j]==0) && (tmpWorkShiftsDonor[i][j]>0)){
+//					tmpWorkShiftsRecipient[i][j] = tmpWorkShiftsDonor [i][j];
+//					tmpWorkShiftsDonor[i][j] = 0;
+//					employees.get(indexOfRecipient).setWorkShifts(tmpWorkShiftsRecipient);
+//					employees.get(indexOfDonor).setWorkShifts(tmpWorkShiftsDonor);
+//					occupiedWorkplace[i][j][tmpWorkShiftsRecipient[i][j]] = indexOfRecipient;
+//					employees.get(indexOfRecipient).setWorkHours(employees.get(indexOfRecipient).getWorkHours() + hoursInShift);
+//					employees.get(indexOfDonor).setWorkHours(employees.get(indexOfDonor).getWorkHours() - hoursInShift);
+//					return 0;
+//				}
+//			}
+//		}
+//		return 1;
+//	}
+	
+	
+	//GEORGI, OPIT 2:
 	public static void rearrangeAveraging(){
-		int countWorkDays=0;
-		int i,j;
-		for(i=0;i<7;i++){
-			if(workdays[i]){
-				countWorkDays++;
-			}
-		}
-		countWorkDays *= 2; //Vsichki izchislenia sa ni za 2-te sedmici ednovremenno
-		final double averageWorkHours = ( countWorkDays * numShifts * hoursInShift * numWorkplaces )/numEmployees ;
-		int indexOfEmployeeWithMinHours = 0;
-		int indexOfEmployeeWithMaxHours = numEmployees - 1;
 		int result = -1;
-		int countAvailableShifts = 0;
-		boolean [][] tmpAvailableShifts = null;
+		LinkedList<Employee> employeesTemp = new LinkedList<Employee>();
+		int indexOfEmployeeWithLeastWorkHours = 0;
+		int indexOfEmployeeWithMostWorkHours = numEmployees - 1;
+		long time1 = System.currentTimeMillis();
+		long time2;
 		while(true){
-			Collections.sort(employees);
-			if((employees.get(indexOfEmployeeWithMinHours).getWorkHours() + hoursInShift) <= averageWorkHours){
-				while(true){
-					if((employees.get(indexOfEmployeeWithMaxHours).getWorkHours() - hoursInShift) >= averageWorkHours){
-						result = exchangeHours(indexOfEmployeeWithMinHours, indexOfEmployeeWithMaxHours);
-						if(result!=0){
-							indexOfEmployeeWithMaxHours--;
-						}
-						else
-							break;
-					}
-					else
-						break;
+			employeesTemp = sortEmployeesByWorkHours(employees);
+			while(result != 0){
+				result = exchangeHours(employeesTemp, indexOfEmployeeWithLeastWorkHours, indexOfEmployeeWithMostWorkHours);
+				if(result != 0) indexOfEmployeeWithMostWorkHours--;
+				if(indexOfEmployeeWithLeastWorkHours >= indexOfEmployeeWithMostWorkHours){
+					indexOfEmployeeWithLeastWorkHours++;
+					indexOfEmployeeWithMostWorkHours = numEmployees - 1;
 				}
-				tmpAvailableShifts = employees.get(indexOfEmployeeWithMinHours).getAvailableShifts();
-				for(i=0; i<14; i++)
-					for(j=0; j<numShifts;j++)
-						if(tmpAvailableShifts[i][j])
-							countAvailableShifts++;
-				if(countAvailableShifts * hoursInShift < averageWorkHours)
-					indexOfEmployeeWithMinHours++;
-				else
-					break;
+				if(indexOfEmployeeWithLeastWorkHours >= (numEmployees - 1))
+					result = 0;
 			}
-			else
+			result = -1;
+			time2 = System.currentTimeMillis();
+			if(time2 - time1 >= 5000)
 				break;
 		}
+		System.out.println("DONE!");
 	}
 	
-	public static int exchangeHours(int indexOfRecipient, int indexOfDonor){
-		int i,j;
-		boolean [][] tmpAvailableShiftsRecipient = employees.get(indexOfRecipient).getAvailableShifts();
-		int [][] tmpWorkShiftsRecipient = employees.get(indexOfRecipient).getWorkShifts();
-		int [][] tmpWorkShiftsDonor = employees.get(indexOfDonor).getWorkShifts();
-		for(i=0;i<14;i++){
-			for(j=0;j<numShifts;j++){
-				if(tmpAvailableShiftsRecipient[i][j] && (tmpWorkShiftsRecipient[i][j]==0) && (tmpWorkShiftsDonor[i][j]>0)){
-					tmpWorkShiftsRecipient[i][j] = tmpWorkShiftsDonor [i][j];
-					tmpWorkShiftsDonor[i][j] = 0;
-					employees.get(indexOfRecipient).setWorkShifts(tmpWorkShiftsRecipient);
-					employees.get(indexOfDonor).setWorkShifts(tmpWorkShiftsDonor);
-					occupiedWorkplace[i][j][tmpWorkShiftsRecipient[i][j]] = indexOfRecipient;
-					employees.get(indexOfRecipient).setWorkHours(employees.get(indexOfRecipient).getWorkHours() + hoursInShift);
-					employees.get(indexOfDonor).setWorkHours(employees.get(indexOfDonor).getWorkHours() - hoursInShift);
-					return 0;
+	public static int exchangeHours(LinkedList<Employee> empTemp, int indexOfRecipient, int indexOfDonor){
+		int result1 = -1;
+		int result2 = -1;
+		for(int i=0;i<14;i++){
+			for(int j=0;j<numShifts;j++){
+				if(empTemp.get(indexOfRecipient).getAvailableShifts()[i][j] && empTemp.get(indexOfDonor).getWorkShifts()[i][j]>0){
+					result1 = enrollEmployee(employees.get((empTemp.get(indexOfRecipient).getId())-1), i, j);
+					result2 = dismissEmployee(employees.get((empTemp.get(indexOfDonor).getId())-1), i, j);
+					if(result1 == 0 && result2 == 0) return 0;
 				}
 			}
 		}

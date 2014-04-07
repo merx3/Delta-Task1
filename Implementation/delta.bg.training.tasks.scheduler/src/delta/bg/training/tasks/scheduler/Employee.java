@@ -7,7 +7,7 @@ import java.io.UnsupportedEncodingException;
 //import java.util.Arrays;
 import java.util.Scanner;
 
-public class Employee implements Comparable<Employee>{
+public class Employee{
 	// TODO: Task 1
 	// declare private variables: id, workHours, etc.
 	
@@ -234,11 +234,6 @@ public class Employee implements Comparable<Employee>{
 				fileWriter.printf("%d ",i+1);
 			}
 		}
-	}
-	
-	public int compareTo(Employee em) {
-		if(this.workHours > em.workHours) return 1; //tuk moje da trqbva da e < znaka, ne sum siguren!
-		else return 0;
 	}
 
 	public void printEmployeeData() {//tmp method for printing all the employee's fields
