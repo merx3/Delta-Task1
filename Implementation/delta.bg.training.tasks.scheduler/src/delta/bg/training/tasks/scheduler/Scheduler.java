@@ -718,7 +718,7 @@ public class Scheduler {
 			}
 			result = -1;
 			time2 = System.currentTimeMillis();
-			if(time2 - time1 >= 3000)
+			if(time2 - time1 >= 5000)
 				break;
 		}
 		System.out.println("DONE!");
@@ -732,8 +732,11 @@ public class Scheduler {
 				//if(empTemp.get(indexOfRecipient).getAvailableShifts()[i][j] && empTemp.get(indexOfDonor).getWorkShifts()[i][j]>0){
 				if(employees.get(indexOfRecipient).getAvailableShifts()[i][j] && employees.get(indexOfDonor).getWorkShifts()[i][j]>0){
 					result1 = dismissEmployee(employees.get(indexOfDonor), i, j);
-					result2 = enrollEmployee(employees.get(indexOfRecipient), i, j);
-					if(result1 == 0 && result2 == 0) return 0;
+					if(result1 == 0){
+						result2 = enrollEmployee(employees.get(indexOfRecipient), i, j);
+						if(result2 ==0)
+							return 0;
+					}
 				}
 			}
 		}
