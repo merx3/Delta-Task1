@@ -382,17 +382,29 @@ public class Scheduler {
 	public static void arrangeHours(int day){
 		int result;
 		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);
-		for(int i=0;i<numEmployees;i++){
-			for(int j=0;j<numShifts;j++){
-				if(employeesTemp.get(i).getAvailableShifts()[day][j]){
-					result = enrollEmployee(employeesTemp.get(i), day, j);
-					if(result == 0)
-						break;
-				}
+		for(int shiftNumber=0;shiftNumber<numShifts;shiftNumber++){
+			int employeesInShift = getEmployeesCountInShift(day, shiftNumber);
+			if (employeesInShift < numWorkplaces) {
+				for(int employeeId=0;employeeId<numEmployees;employeeId++){					
+					if(employeesTemp.get(employeeId).getAvailableShifts()[day][shiftNumber]){
+						result = enrollEmployee(employeesTemp.get(employeeId), day, shiftNumber);
+						if(result == 0)
+							break;
+					}
+				}				
 			}
 		}
 	}
 	
+	private static int getEmployeesCountInShift(int day, int shift){
+		int occupiedCount = 0;
+		for (int workplace = 0; workplace < numWorkplaces; workplace++) {
+			if (occupiedWorkplace[day][shift][workplace] != 0) {
+				occupiedCount++;
+			}
+		}
+		return occupiedCount;
+	}
 
 	// TODO: Task 5
 	
@@ -500,12 +512,7 @@ public class Scheduler {
 
 	private static void addMoreHoursForShift(int day, int shift) {
 		// find the workplaces in the current shift that are occupied
-		int occupiedCount = 0;
-		for (int workplace = 0; workplace < numWorkplaces; workplace++) {
-			if (occupiedWorkplace[day][shift][workplace] != 0) {
-				occupiedCount++;
-			}
-		}
+		int occupiedCount = getEmployeesCountInShift(day, shift);
 		
 		if (occupiedCount < numWorkplaces) {
 			LinkedList<Employee> orderedByFreeTime = sortEmployeesByFreeTimeInDay(employees, day);
