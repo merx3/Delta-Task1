@@ -700,7 +700,7 @@ public class Scheduler {
 		while(true){
 			employeesTemp = sortEmployeesByWorkHours(employees);
 			while(result != 0){
-				result = exchangeHours(employeesTemp, indexOfEmployeeWithLeastWorkHours, indexOfEmployeeWithMostWorkHours);
+				result = exchangeHours((employeesTemp.get(indexOfEmployeeWithLeastWorkHours).getId()-1), (employeesTemp.get(indexOfEmployeeWithMostWorkHours).getId()-1));
 				if(result != 0) indexOfEmployeeWithMostWorkHours--;
 				if(indexOfEmployeeWithLeastWorkHours >= indexOfEmployeeWithMostWorkHours){
 					indexOfEmployeeWithLeastWorkHours++;
@@ -711,20 +711,21 @@ public class Scheduler {
 			}
 			result = -1;
 			time2 = System.currentTimeMillis();
-			if(time2 - time1 >= 5000)
+			if(time2 - time1 >= 3000)
 				break;
 		}
 		System.out.println("DONE!");
 	}
 	
-	public static int exchangeHours(LinkedList<Employee> empTemp, int indexOfRecipient, int indexOfDonor){
+	public static int exchangeHours(int indexOfRecipient, int indexOfDonor){
 		int result1 = -1;
 		int result2 = -1;
 		for(int i=0;i<14;i++){
 			for(int j=0;j<numShifts;j++){
-				if(empTemp.get(indexOfRecipient).getAvailableShifts()[i][j] && empTemp.get(indexOfDonor).getWorkShifts()[i][j]>0){
-					result1 = dismissEmployee(employees.get((empTemp.get(indexOfDonor).getId())-1), i, j);
-					result2 = enrollEmployee(employees.get((empTemp.get(indexOfRecipient).getId())-1), i, j);
+				//if(empTemp.get(indexOfRecipient).getAvailableShifts()[i][j] && empTemp.get(indexOfDonor).getWorkShifts()[i][j]>0){
+				if(employees.get(indexOfRecipient).getAvailableShifts()[i][j] && employees.get(indexOfDonor).getWorkShifts()[i][j]>0){
+					result1 = dismissEmployee(employees.get(indexOfDonor), i, j);
+					result2 = enrollEmployee(employees.get(indexOfRecipient), i, j);
 					if(result1 == 0 && result2 == 0) return 0;
 				}
 			}
