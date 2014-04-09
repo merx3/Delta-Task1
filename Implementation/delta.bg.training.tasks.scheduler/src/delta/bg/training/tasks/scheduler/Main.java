@@ -29,6 +29,7 @@ public class Main {
 			}
 		}
 		Scheduler.rearrangeAveraging();
+		Scheduler.dismissHours();
 		for(Employee em : Scheduler.getEmployees()){
 			em.printEmployeeData();
 			em.writeEmployeeScheduleToFile("Employee" +em.getId() +".out");

@@ -716,7 +716,7 @@ public class Scheduler {
 			}
 			result = -1;
 			time2 = System.currentTimeMillis();
-			if(time2 - time1 >= 5000)
+			if(time2 - time1 >= 10000)
 				break;
 		}
 		System.out.println("DONE!");
@@ -735,13 +735,42 @@ public class Scheduler {
 						if(result2 ==0)
 							return 0;
 						else{
-							enrollEmployee(employees.get(indexOfDonor),i,j);
+							enrollEmployee(employees.get(indexOfDonor), i, j);
 						}
 					}
 				}
 			}
 		}
 		return 1;
+	}
+	
+	public static void dismissHours(){
+		int countShifts;
+		int result;
+		int shift;
+		for(Employee em : employees){
+			if(em.getWorkHours() > maxWorkHours){
+				for(int i=0;i<14;i++){
+					countShifts=0;
+					for(int j=0;j<numShifts;j++){
+						if(em.getWorkShifts()[i][j]>0){
+							countShifts++;
+						}
+					}
+					if(countShifts > 1){
+						shift=0;
+						while(true){
+							result = dismissEmployee(em, i, shift);
+							shift++;
+							if(result == 0)
+								break;
+						}
+					}
+					if(em.getWorkHours() <= maxWorkHours)
+						break;
+				}
+			}
+		}
 	}
 }
 
