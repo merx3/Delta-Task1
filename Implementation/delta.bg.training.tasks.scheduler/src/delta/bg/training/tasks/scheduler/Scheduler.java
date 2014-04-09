@@ -382,18 +382,16 @@ public class Scheduler {
 	public static void arrangeHours(int day){
 		int result;
 		LinkedList<Employee> employeesTemp = sortEmployeesByFreeTimeInDay(employees, day);
-		for(int shiftNumber=0;shiftNumber<numShifts;shiftNumber++){
-			int employeesInShift = getEmployeesCountInShift(day, shiftNumber);
-			if (employeesInShift < numWorkplaces) {
-				for(int employeeId=0;employeeId<numEmployees;employeeId++){					
-					if(employeesTemp.get(employeeId).getAvailableShifts()[day][shiftNumber]){
-						result = enrollEmployee(employeesTemp.get(employeeId), day, shiftNumber);
-						if(result == 0)
-							break;
-					}
-				}				
+		for(int i=0;i<numEmployees;i++){
+			for(int j=0;j<numShifts;j++){
+				if(employeesTemp.get(i).getAvailableShifts()[day][j]){
+					result = enrollEmployee(employeesTemp.get(i), day, j);
+					if(result == 0)
+						break;
+				}
 			}
 		}
+
 	}
 	
 	private static int getEmployeesCountInShift(int day, int shift){
@@ -529,7 +527,7 @@ public class Scheduler {
 	
 	private static int enrollEmployee(Employee employee, int day, int shift) {
 		for (int workPlaceNum = 0; workPlaceNum < numWorkplaces; workPlaceNum++) { // the shift (1-2, or in the arrray 0-1)
-			if (occupiedWorkplace[day][shift][workPlaceNum] == 0) {
+			if (occupiedWorkplace[day][shift][workPlaceNum] == 0 && employee.getWorkShifts()[day][shift] == 0) {
 				employee.getWorkShifts()[day][shift] = workPlaceNum + 1;
 				occupiedWorkplace[day][shift][workPlaceNum] = employee.getId();
 				employee.setWorkHours(employee.getWorkHours() + hoursInShift);
@@ -736,6 +734,9 @@ public class Scheduler {
 						result2 = enrollEmployee(employees.get(indexOfRecipient), i, j);
 						if(result2 ==0)
 							return 0;
+						else{
+							enrollEmployee(employees.get(indexOfDonor),i,j);
+						}
 					}
 				}
 			}
