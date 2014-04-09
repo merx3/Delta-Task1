@@ -711,8 +711,9 @@ public class Scheduler {
 					indexOfEmployeeWithLeastWorkHours++;
 					indexOfEmployeeWithMostWorkHours = numEmployees - 1;
 				}
-				if(indexOfEmployeeWithLeastWorkHours >= (numEmployees - 1))
-					result = 0;
+				if(indexOfEmployeeWithLeastWorkHours >= (numEmployees - 2)){
+					return;
+				}
 			}
 			result = -1;
 			time2 = System.currentTimeMillis();
