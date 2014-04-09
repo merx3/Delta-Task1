@@ -33,5 +33,15 @@ public class Main {
 			em.printEmployeeData();
 			em.writeEmployeeScheduleToFile("Employee" +em.getId() +".out");
 		}
+		for(int j=0;j<14;j++){
+			for(int k=0;k<Scheduler.getNumShifts();k++){
+				for(int l=0;l<Scheduler.getNumWorkplaces();l++){
+					System.out.print("DAY: "+j);
+					System.out.print(" SHIFT: " +k);
+					System.out.print(" WORKPLACE: " +l);
+					System.out.println("EMPLOYEE ID: " +Scheduler.getOccupiedWorkplace()[j][k][l]);
+				}
+			}
+		}
 	}
 }
