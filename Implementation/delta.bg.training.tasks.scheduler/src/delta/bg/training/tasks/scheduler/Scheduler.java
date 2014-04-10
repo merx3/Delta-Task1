@@ -537,7 +537,7 @@ public class Scheduler {
 							break;
 				}
 				for(int j=0; j<numShifts; j++){
-					fileWriter.print("ID number of employees for shift " +(j+1) +":");
+					fileWriter.print("ID numbers of employees for shift " +(j+1) +":");
 					for(int k=0; k<numWorkplaces; k++){
 						if(occupiedWorkplace[i][j][k] > 0){
 							fileWriter.print(" ");
