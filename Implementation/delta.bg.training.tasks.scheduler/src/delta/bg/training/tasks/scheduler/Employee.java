@@ -1,23 +1,12 @@
 package delta.bg.training.tasks.scheduler;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
-//import java.util.Arrays;
 import java.util.Scanner;
 
 public class Employee{
-	// TODO: Task 1
-	// declare private variables: id, workHours, etc.
-	
-	// create get-ers and set-ers for every private variable.
-	// Add necessary verifications for correct values on the set-ers
-	// Use the variables ONLY with the get-ers and set-ers
-	
-	
-	// filename is the name of the Employee.in file. Task 2 
-	// has the read functionality
 	
 	private int id;
 	private int workHours;
@@ -27,7 +16,7 @@ public class Employee{
 	private boolean [][] availableShifts;
 	private int [][] workShifts;
 	
-	public Employee(int id, String filename) {
+	public Employee(int id, String filename){
 		if(id>0) this.id=id;
 		else return;
 		workHours=0;
@@ -37,7 +26,6 @@ public class Employee{
 		availableShifts = new boolean[14][Scheduler.getNumShifts()];
 		setDefaultWorkShifts();
 		setAvailableHoursAndAvailableShifts();
-		//printEmployeeData();
 	}
 
 	public int getId(){
@@ -51,6 +39,7 @@ public class Employee{
 			System.out.println("Invalid ID number!");
 		}
 	}
+	
 	public int getWorkHours(){
 		return this.workHours;
 	}
@@ -65,6 +54,7 @@ public class Employee{
 			System.out.println("Work Hours cannot be more than the legal value!");
 		}
 	}
+	
 	public int[] getStartHours() {
 		return startHours;
 	}
@@ -77,6 +67,7 @@ public class Employee{
 		}
 		this.startHours = startHours;
 	}
+	
 	public int[] getEndHours() {
 		return endHours;
 	}
@@ -89,6 +80,7 @@ public class Employee{
 		}
 		this.endHours = endHours;
 	}
+	
 	public int[] getAvailableHours() {
 		return availableHours;
 	}
@@ -101,23 +93,26 @@ public class Employee{
 		}
 		this.availableHours = availableHours;
 	}
+	
 	public boolean[][] getAvailableShifts() {
 		return availableShifts;
 	}
 	public void setAvailableShifts(boolean[][] availableShifts) {
 		this.availableShifts = availableShifts;
 	}
+	
 	public int[][] getWorkShifts() {
 		return workShifts;
 	}
 	public void setWorkShifts(int[][] workShifts) {
 		this.workShifts = workShifts;
 	}
+	
 	public void setDefaultWorkShifts(){
 		this.workShifts = new int[14][Scheduler.getNumShifts()];
 		for(int i=0;i<14;i++)
 			for(int j=0;j<Scheduler.getNumShifts();j++)
-				this.workShifts[i][j]=0;
+				this.workShifts[i][j] = 0;
 	}
 	
 	public void setAvailableHoursAndAvailableShifts(){
@@ -133,8 +128,6 @@ public class Employee{
 		}
 	}
 	
-	
-	// TODO: Task 2
 	public int readEmployeeDataFromFile(String filename){
 		int counter = 0;
 		int i=0;
@@ -143,9 +136,9 @@ public class Employee{
 		File file;
 		Scanner reader;
 		try{
-		file  = new File(filename);
-		reader = new Scanner(file,"windows-1251");
-		while (reader.hasNext())
+			file = new File(filename);
+			reader = new Scanner(file,"windows-1251");
+			while (reader.hasNext())
 			{
 				String s = reader.nextLine();
 				if (counter!=0&&counter%9!=0)
@@ -166,20 +159,23 @@ public class Employee{
 				counter++;
 			}
 		}
-		catch (FileNotFoundException fnf) { System.out.println("File not found!"); return 1;}
+		catch (FileNotFoundException fnf){
+			System.out.println("File not found!"); return 1;
+		}
 		reader.close();
 		return 0;
 	}
 
 	public int writeEmployeeScheduleToFile(String filename){
-	PrintStream fileWriter;
+		PrintStream fileWriter;
 		try{
 			fileWriter = new PrintStream(filename,"windows-1251");
 			if (this.workHours < Scheduler.getMinWorkHours()) {
 				fileWriter.println("Couldn't schedule enough shifts to attend.");
 				fileWriter.printf("Hours scheduled for the two weeks: %d(minimum required: %d)",this.workHours, Scheduler.getMinWorkHours());
 				fileWriter.println();
-			} else {
+			} 
+			else {
 				fileWriter.printf("Hours scheduled for the two weeks: %d",this.workHours);
 				fileWriter.println();
 				fileWriter.println("First Week");
@@ -228,11 +224,16 @@ public class Employee{
 				fileWriter.println();
 			}
 		}
-		catch (FileNotFoundException fnf) { System.out.println("File not found!"); return 1;}
-		catch (UnsupportedEncodingException un) { System.out.println("Unsupported Encoding!"); return 1;}
+		catch (FileNotFoundException fnf){
+			System.out.println("File not found!"); return 1;
+		}
+		catch (UnsupportedEncodingException un){
+			System.out.println("Unsupported Encoding!"); return 1;
+		}
 		fileWriter.close();
 		return 0;
 	}
+	
 	public void printSpec(int day,PrintStream fileWriter){
 		for (int i = 0;i < Scheduler.getNumShifts(); i++){
 			if(this.workShifts[day][i] > 0){
@@ -240,21 +241,4 @@ public class Employee{
 			}
 		}
 	}
-
-	public void printEmployeeData() {//tmp method for printing all the employee's fields
-		System.out.println(id);
-		System.out.println(workHours);
-//		Arrays.toString(startHours);
-//		Arrays.toString(endHours);
-//		Arrays.toString(availableHours);
-//		for(int i=0;i<14;i++){
-//			for(int j=0;j<Scheduler.getNumShifts();j++){
-//				System.out.print(availableShifts[i][j] +" ");
-//				System.out.println(workShifts[i][j]);
-//			}
-//		}
-	}
-	
-
-	
 }
