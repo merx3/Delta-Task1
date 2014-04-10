@@ -16,7 +16,7 @@ public class Scheduler {
 	private static int breakBetweenShifts;
 	private static int minWorkHours;
 	private static int maxWorkHours;
-	private static int [] shiftStart; // start hour of the shift by day (Ex. shiftStart[0] - start hour on Monday)
+	private static int [] shiftStart; // start hour of every shift (Ex. shiftStart[0] - start hour of shift 1, shiftStar[1] - start hour of shift 2)
 	private static int[][][] occupiedWorkplace;	// occupiedWorkplace[day][shift number][work place number] 
 	private static LinkedList<Employee> employees;	
 	private static Scanner sc = new Scanner(System.in);
