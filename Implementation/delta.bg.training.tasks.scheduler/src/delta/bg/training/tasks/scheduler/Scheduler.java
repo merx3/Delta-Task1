@@ -1,5 +1,8 @@
 package delta.bg.training.tasks.scheduler;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import java.util.LinkedList;
 
@@ -508,6 +511,49 @@ public class Scheduler {
 						break;
 				}
 			}
+		}
+	}
+	
+	public static void writeScheduleToFileForEmployer(String filename){
+		PrintStream fileWriter;
+		try{
+			fileWriter = new PrintStream(filename,"windows-1251");
+			for(int i=0; i<14; i++){
+				fileWriter.print("DAY: ");
+				switch(i % 7){
+					case 0: fileWriter.println("MONDAY");
+							break;
+					case 1: fileWriter.println("TUESDAY");
+							break;
+					case 2: fileWriter.println("WEDNESDAY");
+							break;
+					case 3: fileWriter.println("THURSDAY");
+							break;
+					case 4: fileWriter.println("FRIDAY");
+							break;
+					case 5: fileWriter.println("SATURDAY");
+							break;
+					case 6: fileWriter.println("SUNDAY");
+							break;
+				}
+				for(int j=0; j<numShifts; j++){
+					fileWriter.print("ID number of employees for shift " +(j+1) +":");
+					for(int k=0; k<numWorkplaces; k++){
+						if(occupiedWorkplace[i][j][k] > 0){
+							fileWriter.print(" ");
+							fileWriter.print(occupiedWorkplace[i][j][k]);
+						}
+					}
+					fileWriter.println();
+				}
+			}
+			fileWriter.close();
+		}
+		catch (FileNotFoundException fnf){
+			System.out.println("File not found!");
+		}
+		catch (UnsupportedEncodingException un){
+			System.out.println("Unsupported Encoding!");
 		}
 	}
 }

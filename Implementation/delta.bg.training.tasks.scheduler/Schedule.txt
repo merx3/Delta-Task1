@@ -1,0 +1,42 @@
+DAY: MONDAY
+ID number of employees for shift 1: 1 2 4
+ID number of employees for shift 2: 1 3 2
+DAY: TUESDAY
+ID number of employees for shift 1: 1 2 4
+ID number of employees for shift 2: 4 3 2
+DAY: WEDNESDAY
+ID number of employees for shift 1: 1 2 4
+ID number of employees for shift 2: 4 3 2
+DAY: THURSDAY
+ID number of employees for shift 1: 1 2 4
+ID number of employees for shift 2: 4 3 2
+DAY: FRIDAY
+ID number of employees for shift 1: 1 2 4
+ID number of employees for shift 2: 4 3 2
+DAY: SATURDAY
+ID number of employees for shift 1:
+ID number of employees for shift 2:
+DAY: SUNDAY
+ID number of employees for shift 1:
+ID number of employees for shift 2:
+DAY: MONDAY
+ID number of employees for shift 1: 1 2 3
+ID number of employees for shift 2: 4 3 1
+DAY: TUESDAY
+ID number of employees for shift 1: 1 2 3
+ID number of employees for shift 2: 4 3 1
+DAY: WEDNESDAY
+ID number of employees for shift 1: 1 2 3
+ID number of employees for shift 2: 4 3 1
+DAY: THURSDAY
+ID number of employees for shift 1: 1 2 3
+ID number of employees for shift 2: 4 3 1
+DAY: FRIDAY
+ID number of employees for shift 1: 1 2 3
+ID number of employees for shift 2: 4 3 1
+DAY: SATURDAY
+ID number of employees for shift 1:
+ID number of employees for shift 2:
+DAY: SUNDAY
+ID number of employees for shift 1:
+ID number of employees for shift 2:

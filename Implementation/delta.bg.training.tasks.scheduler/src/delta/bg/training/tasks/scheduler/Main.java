@@ -17,5 +17,6 @@ public class Main {
 		for(Employee em : Scheduler.getEmployees()){
 			em.writeEmployeeScheduleToFile("Employee" +em.getId() +".out");
 		}
+		Scheduler.writeScheduleToFileForEmployer("Schedule.txt");
 	}
 }
