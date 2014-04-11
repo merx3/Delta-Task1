@@ -18,5 +18,6 @@ public class Main {
 			em.writeEmployeeScheduleToFile("Employee" +em.getId() +".out");
 		}
 		Scheduler.writeScheduleToFileForEmployer("Schedule.txt");
+		System.out.println("DONE!");
 	}
 }

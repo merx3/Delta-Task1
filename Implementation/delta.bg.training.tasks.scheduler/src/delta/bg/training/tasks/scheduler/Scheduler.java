@@ -461,7 +461,6 @@ public class Scheduler {
 			if(time2 - time1 >= 5000)
 				break;
 		}
-		System.out.println("DONE!");
 	}
 	
 	public static int exchangeHours(int indexOfRecipient, int indexOfDonor){
