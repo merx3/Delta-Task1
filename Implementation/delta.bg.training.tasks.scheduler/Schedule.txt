@@ -1,9 +1,9 @@
 DAY: MONDAY
-ID numbers of employees for shift 1: 6 4
+ID numbers of employees for shift 1: 2 6 4
 ID numbers of employees for shift 2: 3 5 4
 DAY: TUESDAY
 ID numbers of employees for shift 1: 2 1 4
-ID numbers of employees for shift 2: 5 3 1 2
+ID numbers of employees for shift 2: 5 1 6 2
 DAY: WEDNESDAY
 ID numbers of employees for shift 1: 5 3 4 7
 ID numbers of employees for shift 2: 6 7 3 4
@@ -24,16 +24,16 @@ ID numbers of employees for shift 1: 6 3 5
 ID numbers of employees for shift 2: 4 5 3
 DAY: TUESDAY
 ID numbers of employees for shift 1: 2 1 4
-ID numbers of employees for shift 2: 5 6 2 1
+ID numbers of employees for shift 2: 5 2 6 1
 DAY: WEDNESDAY
 ID numbers of employees for shift 1: 4 5 3 7
 ID numbers of employees for shift 2: 6 7 3
 DAY: THURSDAY
 ID numbers of employees for shift 1: 7 3 4
-ID numbers of employees for shift 2: 5 6 4
+ID numbers of employees for shift 2: 2 5 6 4
 DAY: FRIDAY
 ID numbers of employees for shift 1: 2 3 7 1
-ID numbers of employees for shift 2: 2 6 5 1
+ID numbers of employees for shift 2: 5 2 7 1
 DAY: SATURDAY
 ID numbers of employees for shift 1:
 ID numbers of employees for shift 2:

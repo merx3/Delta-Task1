@@ -458,7 +458,7 @@ public class Scheduler {
 			}
 			result = -1;
 			time2 = System.currentTimeMillis();
-			if(time2 - time1 >= 5000)
+			if(time2 - time1 >= 10000)
 				break;
 		}
 	}
